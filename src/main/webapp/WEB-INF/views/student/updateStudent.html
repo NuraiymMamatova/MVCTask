@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update student</title>
+</head>
+<body>
+<form action="#" th:action="@{/student_api/update}" th:object="${updateStudent}" th:method="put">
+    <p>Id: <input type="hidden" th:field="*{id}"/></p>
+    <p>First name: <input type="text" th:field="*{firstName}" placeholder="first name"/></p>
+    <p>Last name: <input type="text" th:field="*{lastName}" placeholder="last name"/></p>
+    <p>Phone number: <input type="text" th:field="*{phoneNumber}" placeholder="phone number"/></p>
+    <p>Email: <input type="text" th:field="*{email}" placeholder="email"/></p>
+    <p>Study format:<input th:each="studyFormat : ${T(peaksoft.enums.StudyFormat).values()}"
+                           th:value="${studyFormat}" th:text="${studyFormat.displayValue}"></p>
+    <p><input type="submit" value="Submit"/></p>
+</form>
+
+</body>
+</html>

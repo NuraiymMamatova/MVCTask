@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All courses</title>
+    <style>
+        table, th, td {
+            margin-top:255px;
+            border: 36px;
+            color: black;
+            width: 710px;
+        }
+    </style>
+</head>
+<body>
+<center>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Duration</th>
+            <th>Description</th>
+            <th>Lessons</th>
+            <th>Groups</th>
+            <th>Instructors</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+        <div th:each="course:${allCourse}">
+            <tr>
+                <td>
+                    <p th:text="${course.id}"/>
+                </td>
+                <td>
+                    <p th:text="${course.courseName}"/>
+                </td>
+                <td>
+                    <p th:text="${course.duration}"></p>
+                </td>
+                <td>
+                    <p th:text="${course.description}"/>
+                </td>
+                <td>
+                    <a th:href="@{/lesson_api/allOfLessons}">
+                        <button style="width: 100px; height: 40px">Lessons</button>
+                    </a>
+                </td>
+                <td>
+                    <a th:href="@{/instructor_api/allOfInstructors}">
+                        <button style="width: 100px; height: 40px">Instructors</button>
+                    </a>
+                </td>
+                <td>
+                    <a th:href="@{/group_api/allOfGroups}">
+                        <button style="width: 100px; height: 40px">Groups</button>
+                    </a>
+                </td>
+                <td>
+                    <a th:href="@{/course_api/update(id = ${course.id})}">
+                        <button style="width: 100px; height: 40px;">Update</button>
+                    </a>
+                </td>
+                <td>
+                <a th:href="@{/course_api/delete(id = ${course.id})}">
+                    <button style="width: 100px; height: 40px;">Delete</button>
+                </a>
+            </td>
+            </tr>
+        </div>
+    </table>
+    <a th:href="@{/course_api/new}">
+        <button style="width: 100px; height: 40px;">Add</button>
+    </a>
+
+    <a th:href="@{/company_api/allOfCompanies}">
+        <button style="width: 100px; height: 40px;">Back</button>
+    </a>
+</center>
+
+</body>
+</html>

@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All lessons</title>
+    <style>
+        table, th, td {
+            margin-top: 255px;
+            border: 36px;
+            color: black;
+            width: 710px;
+        }
+    </style>
+</head>
+<body>
+<center>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Lesson name</th>
+            <th>Tasks</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+        <div th:each="lesson:${allLesson}">
+            <tr>
+                <td>
+                    <p th:text="${lesson.id}"/>
+                </td>
+                <td>
+                    <p th:text="${lesson.lessonName}"/>
+                </td>
+                <td>
+                    <a th:href="@{/task_api/allOfTasks}">
+                        <button style="width: 100px; height: 40px;">Tasks</button>
+                    </a>
+                </td>
+                <td>
+                    <a th:href="@{/lesson_api/update(id = ${lesson.id})}">
+                        <button style="width: 100px; height: 40px;">Update</button>
+                    </a>
+                </td>
+                <td>
+                <a th:href="@{/lesson_api/delete(id = ${lesson.id})}">
+                    <button style="width: 100px; height: 40px;">Delete</button>
+                </a>
+            </td>
+                <td>
+
+                </td>
+            </tr>
+        </div>
+    </table>
+    <a th:href="@{/lesson_api/new}">
+        <button style="width: 100px; height: 40px;">Add</button>
+    </a>
+    <a th:href="@{/course_api/allOfCourses}">
+        <button style="width: 100px; height: 40px;">Back</button>
+    </a>
+</center>
+</body>
+</html>

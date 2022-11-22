@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Save company</title>
+    <style>
+        table, th, td {
+            margin-top: 255px;
+            border: 36px;
+            color: black;
+            width: 710px;
+        }
+    </style>
+</head>
+<body>
+<form th:method="POST" th:action="@{save}" th:object="${newCompany}">
+    <div class="mb-3">
+        <label for="name" class="form-label">Company name</label>
+        <input type="text" class="form-control" id="name" th:field="*{companyName}">
+
+    </div>
+    <div class="mb-3">
+        <label for="locatedCountry" class="form-label">Located country</label>
+        <input type="text" class="form-control" id="locatedCountry" th:field="*{locatedCountry}">
+    </div>
+    <button type="submit">Save</button>
+</form>
+</body>
+</html>

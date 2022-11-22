@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All groups</title>
+    <style>
+        table, th, td {
+            margin-top: 255px;
+            border: 36px;
+            color: black;
+            width: 710px;
+        }
+    </style>
+</head>
+<body>
+<center>
+    <table>
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Date of start</th>
+            <th>Image</th>
+            <th>Students</th>
+            <th>Update</th>
+            <th>Delete</th>
+        </tr>
+        <div th:each="group:${allGroup}">
+            <tr>
+                <td>
+                    <p th:text="${group.id}"/>
+                </td>
+                <td>
+                    <p th:text="${group.groupName}"/>
+                </td>
+                <td>
+                    <p th:text="${group.dateOfStart}"></p>
+                </td>
+                <td>
+                    <p th:text="${group.image}" alt="image"/>
+                </td>
+                <td>
+                    <a th:href="@{/student_api/allOfStudents}">
+                        <button style="width: 100px; height: 40px;">Students</button>
+                    </a>
+                </td>
+                <td>
+                <a th:href="@{/group_api/update(id = ${group.id})}">
+                    <button style="width: 100px; height: 40px;">Update</button>
+                </a>
+            </td>
+                <td>
+                    <a th:href="@{/group_api/delete(id = ${group.id})}">
+                        <button style="width: 100px; height: 40px;">Delete</button>
+                    </a>
+                </td>
+            </tr>
+        </div>
+    </table>
+    <a th:href="@{/group_api/new}">
+        <button style="width: 100px; height: 40px;">Add</button>
+    </a>
+    <a th:href="@{/course_api/allOfCourses}">
+        <button style="width: 100px; height: 40px;">Back</button>
+    </a>
+</center>
+</body>
+</html>
