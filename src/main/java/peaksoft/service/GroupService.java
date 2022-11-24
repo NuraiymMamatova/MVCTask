@@ -6,13 +6,14 @@ import java.util.List;
 
 public interface GroupService {
 
-    void saveGroup(Group group);
+    void saveGroup(Long id,Group group);
 
     void deleteGroup(Long id);
 
-    void updateGroup(Group group);
+    void updateGroup(Long id, Group group);
 
     Group getGroupById(Long id);
 
     List<Group> getAllGroups();
+
 }

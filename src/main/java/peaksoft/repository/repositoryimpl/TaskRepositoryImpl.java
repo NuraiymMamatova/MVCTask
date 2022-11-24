@@ -1,6 +1,7 @@
 package peaksoft.repository.repositoryimpl;
 
 import org.springframework.stereotype.Repository;
+import peaksoft.entity.Lesson;
 import peaksoft.entity.Task;
 import peaksoft.repository.TaskRepository;
 
@@ -17,8 +18,11 @@ public class TaskRepositoryImpl implements TaskRepository {
     private EntityManager entityManager;
 
     @Override
-    public void saveTask(Task task) {
-        entityManager.merge(task);
+    public void saveTask(Long id, Task task) {
+        Lesson lesson = entityManager.find(Lesson.class, id);
+        lesson.addTasks(task);
+        task.setLesson(lesson);
+        entityManager.merge(lesson);
     }
 
     @Override
@@ -27,8 +31,12 @@ public class TaskRepositoryImpl implements TaskRepository {
     }
 
     @Override
-    public void updateTask(Task task) {
-        entityManager.merge(task);
+    public void updateTask(Long id, Task task) {
+        Task task1 = entityManager.find(Task.class, id);
+        task1.setTaskName(task.getTaskName());
+        task1.setTaskText(task.getTaskText());
+        task1.setDeadline(task.getDeadline());
+        entityManager.merge(task1);
     }
 
     @Override

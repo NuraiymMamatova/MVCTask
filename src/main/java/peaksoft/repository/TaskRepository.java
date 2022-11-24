@@ -6,11 +6,11 @@ import java.util.List;
 
 public interface TaskRepository {
 
-    void saveTask(Task task);
+    void saveTask(Long id, Task task);
 
     void deleteTask(Long id);
 
-    void updateTask(Task task);
+    void updateTask(Long id, Task task);
 
     Task getTaskById(Long id);
 

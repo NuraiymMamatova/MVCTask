@@ -18,11 +18,11 @@ public class CourseRepositoryImpl implements CourseRepository {
     private EntityManager entityManager;
 
     @Override
-    public void saveCourse(/*Long id, */Course course) {
-  /*      Company company = entityManager.find(Company.class, id);
+    public void saveCourse(Long id, Course course) {
+        Company company = entityManager.find(Company.class, id);
         company.addCourse(course);
-        course.setCompany(company);*/
-        entityManager.merge(course);
+        course.setCompany(company);
+        entityManager.merge(company);
     }
 
     @Override
@@ -31,8 +31,12 @@ public class CourseRepositoryImpl implements CourseRepository {
     }
 
     @Override
-    public void updateCourse(Course course) {
-        entityManager.merge(course);
+    public void updateCourse(Long id, Course course) {
+        Course course1 = entityManager.find(Course.class, id);
+        course1.setCourseName(course.getCourseName());
+        course1.setDuration(course.getDuration());
+        course1.setDescription(course.getDescription());
+        entityManager.merge(course1);
     }
 
     @Override
@@ -41,8 +45,9 @@ public class CourseRepositoryImpl implements CourseRepository {
     }
 
     @Override
-    public List<Course> getAllCourses(/*Long id*/) {
-//        return entityManager.createQuery("select c from Course c where c.company.id = :id", Course.class).getResultList();
+    public List<Course> getAllCourses() {
         return entityManager.createQuery("select c from Course c ", Course.class).getResultList();
     }
+
+
 }

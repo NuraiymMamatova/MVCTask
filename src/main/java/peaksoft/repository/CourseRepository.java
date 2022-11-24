@@ -6,13 +6,13 @@ import java.util.List;
 
 public interface CourseRepository {
 
-    void saveCourse(/*Long id,*/ Course course);
+    void saveCourse(Long id, Course course);
 
     void deleteCourse(Long id);
 
-    void updateCourse(Course course);
+    void updateCourse(Long id, Course course);
 
     Course getCourseById(Long id);
 
-    List<Course> getAllCourses(/*Long id*/);
+    List<Course> getAllCourses();
 }

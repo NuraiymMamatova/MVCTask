@@ -6,11 +6,11 @@ import java.util.List;
 
 public interface StudentService {
 
-    void saveStudent(Student student);
+    void saveStudent(Long id, Student student);
 
     void deleteStudent(Long id);
 
-    void updateStudent(Student student);
+    void updateStudent(Long id, Student student);
 
     Student getStudentById(Long id);
 

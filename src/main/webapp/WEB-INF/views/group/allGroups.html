@@ -39,27 +39,27 @@
                     <p th:text="${group.image}" alt="image"/>
                 </td>
                 <td>
-                    <a th:href="@{/student_api/allOfStudents}">
+                    <a th:href="@{/student_api/allOfStudents/{id}(id=${group.id})}">
                         <button style="width: 100px; height: 40px;">Students</button>
                     </a>
                 </td>
                 <td>
-                <a th:href="@{/group_api/update(id = ${group.id})}">
+                <a th:href="@{/group_api/update/{courseId}/{id}(id = ${group.id}, courseId=${courseId})}">
                     <button style="width: 100px; height: 40px;">Update</button>
                 </a>
             </td>
                 <td>
-                    <a th:href="@{/group_api/delete(id = ${group.id})}">
+                    <a th:href="@{/group_api/{courseId}/{id}/delete(courseId= ${courseId}, id = ${group.id})}">
                         <button style="width: 100px; height: 40px;">Delete</button>
                     </a>
                 </td>
             </tr>
         </div>
     </table>
-    <a th:href="@{/group_api/new}">
+    <a th:href="@{/group_api/{id}/new(id=${courseId})}">
         <button style="width: 100px; height: 40px;">Add</button>
     </a>
-    <a th:href="@{/course_api/allOfCourses}">
+    <a th:href="@{/course_api/allOfCourses/{id}(id=${id})}">
         <button style="width: 100px; height: 40px;">Back</button>
     </a>
 </center>

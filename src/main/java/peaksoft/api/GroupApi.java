@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import peaksoft.entity.Course;
 import peaksoft.entity.Group;
 import peaksoft.service.GroupService;
 
@@ -18,39 +19,45 @@ public class GroupApi {
         this.groupService = groupService;
     }
 
-    @GetMapping("/allOfGroups")
-    private String getAllGroups(Model model) {
+    @GetMapping("/allOfGroups/{id}")
+    private String getAllGroups(@PathVariable Long id, Model model) {
         model.addAttribute("allGroup",  groupService.getAllGroups());
+        model.addAttribute("courseId", id);
         return "/group/allGroups";
     }
 
-    @GetMapping("/new")
-    private String newGroup(Model model) {
+    @GetMapping("/{id}/new")
+    private String newGroup(@PathVariable Long id,  Model model) {
         model.addAttribute("newGroup", new Group());
+        model.addAttribute("courseId", id);
         return "/group/saveGroup";
     }
 
-    @PostMapping("/save")
-    private String saveGroup(@ModelAttribute("newGroup") Group group) {
-        groupService.saveGroup(group);
-        return "redirect:/group_api/allOfGroups";
+    @PostMapping("/{id}/save")
+    private String saveGroup(@ModelAttribute("newGroup") Group group, @PathVariable Long id) {
+        groupService.saveGroup(id, group);
+        return "redirect:/group_api/allOfGroups/" + id;
     }
 
-    @GetMapping("/update")
-    private String upGroup(@RequestParam("id")Long id, Model model) {
-        model.addAttribute("updateGroup", groupService.getGroupById(id));
+    @GetMapping("/update/{courseId}/{id}")
+    private String upGroup(@PathVariable("id")Long id, @PathVariable("courseId")Long courseId, Model model) {
+        Group group = groupService.getGroupById(id);
+        model.addAttribute("updateGroup", group);
+        model.addAttribute("courseId", courseId);
         return "/group/updateGroup";
     }
 
-    @PostMapping("/update")
-    private String dateGroup(@ModelAttribute("updateGroup") Group group) {
-        groupService.updateGroup(group);
-        return "redirect:/group_api/allOfGroups";
+    @PostMapping("/{courseId}/{id}/update")
+    private String dateGroup(@PathVariable("courseId") Long courseId, @PathVariable("id") Long id, @ModelAttribute("updateGroup") Group group) {
+        System.out.println("date group before");
+        groupService.updateGroup(id, group);
+        System.out.println("date group after");
+        return "redirect:/group_api/allOfGroups/" + courseId;
     }
 
-    @RequestMapping("/delete")
-    private String deleteGroup(@RequestParam("id") Long id) {
+    @RequestMapping("/{courseId}/{id}/delete")
+    private String deleteGroup(@PathVariable("courseId") Long courseId, @PathVariable("id") Long id) {
         groupService.deleteGroup(id);
-        return "redirect:/group_api/allOfGroups";
+        return "redirect:/group_api/allOfGroups/" + courseId;
     }
 }

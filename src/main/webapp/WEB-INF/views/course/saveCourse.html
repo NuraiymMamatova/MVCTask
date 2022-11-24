@@ -13,9 +13,10 @@
     </style>
 </head>
 <body>
-<form th:method="POST" th:action="@{/course_api/save}" th:object="${newCourse}">
+<form th:method="POST" th:action="@{/course_api/{id}/save(id=${companyId})}" th:object="${newCourse}">
     <div class="mb-3">
         <label for="name" class="form-label">Course name</label>
+        <input type="hidden" name="id" th:field="*{id}">
         <input type="text" class="form-control" id="name" aria-describedby="helpCourse" th:field="*{courseName}">
         <div id="helpCourse" class="form-text"></div>
     </div>

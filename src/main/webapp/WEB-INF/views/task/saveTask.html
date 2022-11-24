@@ -13,7 +13,7 @@
     </style>
 </head>
 <body>
-<form th:method="POST" th:action="@{save}" th:object="${newTask}">
+<form th:method="POST" th:action="@{/task_api/{id}/save(id=${lessonId})}" th:object="${newTask}">
     <div class="mb-3">
         <label for="name" class="form-label">Name</label>
         <input type="text" class="form-control" id="name" th:field="*{taskName}">

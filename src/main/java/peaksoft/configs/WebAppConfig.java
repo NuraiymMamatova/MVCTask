@@ -33,7 +33,7 @@ public class WebAppConfig {
     public SpringResourceTemplateResolver templateResolver() {
         SpringResourceTemplateResolver srtr = new SpringResourceTemplateResolver();
         srtr.setApplicationContext(applicationContext);
-        srtr.setPrefix("/WEB-INF/views");
+        srtr.setPrefix("/WEB-INF/views/");
         srtr.setSuffix(".html");
         return srtr;
     }

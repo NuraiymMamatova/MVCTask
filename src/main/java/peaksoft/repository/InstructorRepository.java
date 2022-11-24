@@ -8,13 +8,11 @@ import java.util.List;
 
 public interface InstructorRepository {
 
-    void saveInstructor(Instructor instructor);
+    void saveInstructor(Long id, Instructor instructor);
 
     void deleteInstructor(Long id);
 
-    void updateInstructor(Instructor instructor);
-
-    void assignInstructorToCourse(Course course, Instructor instructor);
+    void updateInstructor(Long id, Instructor instructor);
 
     Instructor getInstructorById(Long id);
 

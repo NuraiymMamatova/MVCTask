@@ -18,40 +18,44 @@ public class InstructorApi {
         this.instructorService = instructorService;
     }
 
-    @GetMapping("/allOfInstructors")
-    private String getAllInstructors(Model model) {
+    @GetMapping("/allOfInstructors/{id}")
+    private String getAllInstructors(@PathVariable Long id, Model model) {
         model.addAttribute("allInstructor", instructorService.getAllInstructors());
+        model.addAttribute("courseId", id);
         return "/instructor/allInstructors";
     }
 
-    @GetMapping("/new")
-    private String newInstructor(Model model) {
+    @GetMapping("/{id}/new")
+    private String newInstructor(@PathVariable Long id,  Model model) {
         model.addAttribute("newInstructor", new Instructor());
+        model.addAttribute("courseId", id);
         return "/instructor/saveInstructor";
     }
 
-    @PostMapping("/save")
-    private String saveInstructor(@ModelAttribute("newInstructor") Instructor instructor) {
-        instructorService.saveInstructor(instructor);
-        return "redirect:/instructor_api/allOfInstructors";
+    @PostMapping("/{id}/save")
+    private String saveInstructor(@ModelAttribute("newInstructor") Instructor instructor, @PathVariable Long id) {
+        instructorService.saveInstructor(id, instructor);
+        return "redirect:/instructor_api/allOfInstructors/" + id;
     }
 
-    @GetMapping("/update")
-    private String upInstructor(@RequestParam("id") Long id, Model model) {
-        model.addAttribute("updateInstructor", instructorService.getInstructorById(id));
+    @GetMapping("/update/{id}")
+    private String upInstructor(@PathVariable("id") Long id, Model model) {
+        Instructor instructor =  instructorService.getInstructorById(id);
+        model.addAttribute("updateInstructor", instructor);
+        model.addAttribute("courseId", instructor.getCourse().getId());
         return "/instructor/updateInstructor";
     }
 
-    @PostMapping("/update")
-    private String dateInstructor(@ModelAttribute("updateInstructor") Instructor instructor) {
-        instructorService.updateInstructor(instructor);
-        return "redirect:/instructor_api/allOfInstructors";
+    @PostMapping("/{courseId}/{id}/update")
+    private String dateInstructor(@PathVariable("courseId") Long courseId, @PathVariable("id") Long id, @ModelAttribute("updateInstructor") Instructor instructor) {
+        instructorService.updateInstructor(id, instructor);
+        return "redirect:/instructor_api/allOfInstructors/" + courseId;
     }
 
-    @RequestMapping("/delete")
-    private String deleteInstructor(@RequestParam("id") Long id) {
+    @RequestMapping("/{courseId}/{id}/delete")
+    private String deleteInstructor(@PathVariable("courseId") Long courseId, @PathVariable("id") Long id) {
          instructorService.deleteInstructor(id);
-         return "redirect:/instructor_api/allOfInstructors";
+         return "redirect:/instructor_api/allOfInstructors/" + courseId;
     }
 
 }

@@ -30,8 +30,8 @@ public class Task {
 
     private Date deadline;
 
-//    @ManyToOne(cascade = {PERSIST, MERGE, REFRESH}, fetch = FetchType.EAGER)
-//    private Lesson lesson;
+    @ManyToOne(cascade = { MERGE, REFRESH, DETACH, PERSIST}, fetch = FetchType.EAGER)
+    private Lesson lesson;
 
     public Task(String taskName, String taskText, Date deadline) {
         this.taskName = taskName;

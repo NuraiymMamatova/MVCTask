@@ -33,8 +33,8 @@ public class Instructor {
 
     private String specialization;
 
-//    @ManyToOne(cascade = {REFRESH, MERGE, DETACH, PERSIST}, fetch = FetchType.EAGER)
-//    private Course course;
+    @ManyToOne(cascade = {MERGE, REFRESH, DETACH, PERSIST}, fetch = FetchType.EAGER)
+    private Course course;
 
     public Instructor(String firstName, String lastName, String phoneNumber, String email, String specialization) {
         this.firstName = firstName;
@@ -43,4 +43,6 @@ public class Instructor {
         this.email = email;
         this.specialization = specialization;
     }
+
+
 }

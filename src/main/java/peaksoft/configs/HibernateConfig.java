@@ -15,6 +15,7 @@ import javax.persistence.EntityManagerFactory;
 import javax.sql.DataSource;
 import java.util.Objects;
 import java.util.Properties;
+
 @Configuration
 @PropertySource("classpath:application.properties")
 @EnableTransactionManagement
@@ -43,7 +44,7 @@ public class HibernateConfig {
         return properties;
     }
 
-    @Bean("emf")
+    @Bean
     public EntityManagerFactory entityManagerFactory(DataSource dataSource) {
         HibernateJpaVendorAdapter jpaVendorAdapter = new HibernateJpaVendorAdapter();
         jpaVendorAdapter.setGenerateDdl(true);
