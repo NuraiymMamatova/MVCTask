@@ -9,6 +9,7 @@ public interface CompanyRepository {
     void saveCompany(Company company);
 
     void deleteCompany(Long id);
+//    void deleteCompany(Company company);
 
     void updateCompany(Company company);
 

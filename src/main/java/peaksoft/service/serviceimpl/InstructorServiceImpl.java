@@ -21,8 +21,8 @@ public class InstructorServiceImpl implements InstructorService {
     }
 
     @Override
-    public void saveInstructor(Instructor instructor) {
-        instructorRepository.saveInstructor(instructor);
+    public void saveInstructor(Long id, Instructor instructor) {
+        instructorRepository.saveInstructor(id, instructor);
     }
 
     @Override
@@ -31,8 +31,8 @@ public class InstructorServiceImpl implements InstructorService {
     }
 
     @Override
-    public void updateInstructor(Instructor instructor) {
-        instructorRepository.updateInstructor(instructor);
+    public void updateInstructor(Long id, Instructor instructor) {
+        instructorRepository.updateInstructor(id, instructor);
     }
 
     @Override

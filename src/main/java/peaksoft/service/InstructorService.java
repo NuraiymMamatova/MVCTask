@@ -6,11 +6,11 @@ import java.util.List;
 
 public interface InstructorService {
 
-    void saveInstructor(Instructor instructor);
+    void saveInstructor(Long id, Instructor instructor);
 
     void deleteInstructor(Long id);
 
-    void updateInstructor(Instructor instructor);
+    void updateInstructor(Long id, Instructor instructor);
 
     Instructor getInstructorById(Long id);
 

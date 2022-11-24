@@ -22,8 +22,8 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public void saveGroup(Group group) {
-        groupRepository.saveGroup(group);
+    public void saveGroup(Long id, Group group) {
+        groupRepository.saveGroup(id, group);
     }
 
     @Override
@@ -32,8 +32,8 @@ public class GroupServiceImpl implements GroupService {
     }
 
     @Override
-    public void updateGroup(Group group) {
-        groupRepository.updateGroup(group);
+    public void updateGroup(Long id, Group group) {
+        groupRepository.updateGroup(id, group);
     }
 
     @Override
@@ -45,4 +45,5 @@ public class GroupServiceImpl implements GroupService {
     public List<Group> getAllGroups() {
         return groupRepository.getAllGroups();
     }
+
 }

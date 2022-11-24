@@ -18,39 +18,43 @@ public class StudentApi {
         this.studentService = studentService;
     }
 
-    @GetMapping("/allOfStudents")
-    private String getAllLessons(Model model) {
+    @GetMapping("/allOfStudents/{id}")
+    private String getAllLessons(@PathVariable Long id, Model model) {
         model.addAttribute("allStudent", studentService.getAllStudents());
+        model.addAttribute("groupId", id);
         return "/student/allStudents";
     }
 
-    @GetMapping("/new")
-    private String newStudent(Model model) {
+    @GetMapping("/{id}/new")
+    private String newStudent(@PathVariable Long id, Model model) {
         model.addAttribute("newStudent", new Student());
+        model.addAttribute("groupId", id);
         return "/student/saveStudent";
     }
 
-    @PostMapping("/save")
-    private String saveStudent(@ModelAttribute("newStudent") Student student) {
-        studentService.saveStudent(student);
-        return "redirect:/student_api/allOfStudents";
+    @PostMapping("/{id}/save")
+    private String saveStudent(@ModelAttribute("newStudent") Student student, @PathVariable Long id) {
+        studentService.saveStudent(id, student);
+        return "redirect:/student_api/allOfStudents/" + id;
     }
 
-    @GetMapping("/update")
-    private String upStudent(@RequestParam("id") Long id, Model model) {
-        model.addAttribute("updateStudent", studentService.getStudentById(id));
+    @GetMapping("/update/{id}")
+    private String upStudent(@PathVariable("id") Long id, Model model) {
+        Student student = studentService.getStudentById(id);
+        model.addAttribute("updateStudent", student);
+        model.addAttribute("groupId", student.getGroup().getId());
         return "/student/updateStudent";
     }
 
-    @PostMapping("/update")
-    private String dateStudent(@ModelAttribute("updateStudent") Student student) {
-        studentService.updateStudent(student);
-        return "redirect:/student_api/allOfStudents";
+    @PostMapping("/{groupId}/{id}/update")
+    private String dateStudent(@PathVariable("groupId") Long groupId, @PathVariable("id") Long id, @ModelAttribute("updateStudent") Student student) {
+        studentService.updateStudent(id, student);
+        return "redirect:/student_api/allOfStudents/" + groupId;
     }
 
-    @RequestMapping("/delete")
-    private String deleteStudent(@RequestParam("id") Long id) {
+    @RequestMapping("/{groupId}/{id}/delete")
+    private String deleteStudent(@PathVariable("groupId") Long groupId, @PathVariable("id") Long id) {
         studentService.deleteStudent(id);
-        return "redirect:/student_api/allOfStudents";
+        return "redirect:/student_api/allOfStudents/" + groupId;
     }
 }

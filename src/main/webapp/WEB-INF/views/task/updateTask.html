@@ -5,7 +5,7 @@
     <title>Update task</title>
 </head>
 <body>
-<form action="#" th:action="@{/task_api/update}" th:object="${updateTask}" th:method="put">
+<form action="#" th:action="@{/task_api/{lessonId}/{id}/update(lessonId=${lessonId}, id=${updateTask.id})}" th:object="${updateTask}" th:method="put">
     <p>Id: <input type="hidden" th:field="*{id}"/></p>
     <p>Task name: <input type="text" th:field="*{taskName}" placeholder="task name"/></p>
     <p>Text: <input type="text" th:field="*{taskText}" placeholder="task text"/></p>

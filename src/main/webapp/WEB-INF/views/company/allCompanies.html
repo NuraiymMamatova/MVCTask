@@ -36,13 +36,13 @@
                 </td>
 
                 <td>
-                    <a th:href="@{/course_api/allOfCourses}">
+                    <a th:href="@{/course_api/allOfCourses/{id}(id=${company.id})}">
                         <button style="width: 100px; height: 40px;">Courses</button>
                     </a>
                 </td>
 
                 <td>
-                    <a th:href="@{/company_api/update(id = ${company.id})}">
+                    <a th:href="@{/company_api/update/(id = ${company.id})}">
                         <button style="width: 100px; height: 40px;">Update</button>
                     </a>
                 </td>

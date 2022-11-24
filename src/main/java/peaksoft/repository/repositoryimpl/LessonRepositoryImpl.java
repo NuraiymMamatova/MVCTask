@@ -1,6 +1,7 @@
 package peaksoft.repository.repositoryimpl;
 
 import org.springframework.stereotype.Repository;
+import peaksoft.entity.Course;
 import peaksoft.entity.Lesson;
 import peaksoft.repository.LessonRepository;
 
@@ -17,8 +18,11 @@ public class LessonRepositoryImpl implements LessonRepository {
     private EntityManager entityManager;
 
     @Override
-    public void saveLesson(Lesson lesson) {
-        entityManager.persist(lesson);
+    public void saveLesson(Long id, Lesson lesson) {
+        Course course = entityManager.find(Course.class, id);
+        course.addLesson(lesson);
+        lesson.setCourse(course);
+        entityManager.merge(course);
     }
 
     @Override
@@ -27,8 +31,10 @@ public class LessonRepositoryImpl implements LessonRepository {
     }
 
     @Override
-    public void updateLesson(Lesson lesson) {
-        entityManager.merge(lesson);
+    public void updateLesson(Long id, Lesson lesson) {
+        Lesson lesson1 = entityManager.find(Lesson.class, id);
+        lesson1.setLessonName(lesson.getLessonName());
+        entityManager.merge(lesson1);
     }
 
     @Override

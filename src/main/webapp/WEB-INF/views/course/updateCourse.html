@@ -5,7 +5,10 @@
     <title>Update course</title>
 </head>
 <body>
-<form action="#" th:action="@{/course_api/update}" th:object="${updateCourse}" th:method="put">
+<form action="#"
+      th:action="@{/course_api/{companyId}/{id}/update(companyId=${companyId}, id=${updateCourse.id})}"
+      th:object="${updateCourse}"
+      th:method="put">
     <p>Id: <input type="hidden" th:field="*{id}"/></p>
     <p>Course name: <input type="text" th:field="*{courseName}" placeholder="course name"/></p>
     <p>Duration: <input type="number" th:field="*{duration}" placeholder="duration"/></p>

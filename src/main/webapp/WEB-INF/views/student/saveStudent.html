@@ -13,9 +13,10 @@
     </style>
 </head>
 <body>
-<form th:method="POST" th:action="@{save}" th:object="${newStudent}">
+<form th:method="POST" th:action="@{/student_api/{id}/save(id = ${groupId})}" th:object="${newStudent}">
     <div class="mb-3">
         <label for="firstName" class="form-label">First name</label>
+        <input type="hidden" name="id" th:field="*{id}">
         <input type="text" class="form-control" id="firstName" aria-describedby="helpCourse" th:field="*{firstName}">
         <div id="helpCourse" class="form-text"></div>
     </div>
@@ -29,7 +30,7 @@
     </div>
     <div class="mb-3">
         <label for="email" class="form-label">Email</label>
-        <input type="text" class="form-control" id="email" th:field="*{email}">
+        <input type="email" class="form-control" id="email" th:field="*{email}">
     </div>
     <div class="mb-3">
         <label>Study Format
@@ -37,7 +38,6 @@
                 <option th:each="studyFormat : ${T(peaksoft.enums.StudyFormat).values()}"
                         th:value="${studyFormat}" th:text="${studyFormat.displayValue}"></option>
             </select>
-
         </label>
     </div>
     <button type="submit" class="btn btn-primary">Save</button>

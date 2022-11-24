@@ -18,40 +18,44 @@ public class CourseApi {
         this.courseService = courseService;
     }
 
-    @GetMapping("/allOfCourses")
-    private String getAllCourses(Model model/*, @RequestParam("id") Long id*/) {
-        model.addAttribute("allCourse", courseService.getAllCourses(/*id*/));
+    @GetMapping("/allOfCourses/{id}")
+    private String getAllCourses(@PathVariable Long id,  Model model) {
+        model.addAttribute("allCourse", courseService.getAllCourses());
+        model.addAttribute("companyId", id);
         return "/course/allCourses";
     }
 
-    @GetMapping("/new")
-    private String newCourse(Model model) {
+    @GetMapping("/{id}/new")
+    private String newCourse(@PathVariable Long id, Model model) {
         model.addAttribute("newCourse", new Course());
+        model.addAttribute("companyId", id);
         return "/course/saveCourse";
     }
 
-    @PostMapping("/save")
-    private String saveCourse(@ModelAttribute("newCourse") Course course) {
-        courseService.saveCourse(course);
-        return "redirect:/course_api/allOfCourses";
+    @PostMapping("/{id}/save")
+    private String saveCourse(@ModelAttribute("newCourse") Course course, @PathVariable Long id) {
+        courseService.saveCourse(id, course);
+        return "redirect:/course_api/allOfCourses/" + id;
     }
 
-    @GetMapping("/update")
-    private String upCourse(@RequestParam("id") Long id, Model model) {
-        model.addAttribute("updateCourse", courseService.getCourseById(id));
+    @GetMapping("/update/{id}")
+    private String upCourse(@PathVariable("id") Long id, Model model) {
+        Course course = courseService.getCourseById(id);
+        model.addAttribute("updateCourse", course);
+        model.addAttribute("companyId", course.getCompany().getId());
         return "/course/updateCourse";
     }
 
-    @PostMapping("/update")
-    private String dateCourse(@ModelAttribute("updateCourse") Course course) {
-        courseService.updateCourse(course);
-        return "redirect:/course_api/allOfCourses";
+    @PostMapping("/{companyId}/{id}/update")
+    private String dateCourse(@PathVariable("companyId")Long companyId, @PathVariable("id") Long id, @ModelAttribute("updateCourse") Course course) {
+        courseService.updateCourse(id, course);
+        return "redirect:/course_api/allOfCourses/" + companyId;
     }
 
-    @RequestMapping("/delete")
-    private String deleteCourse(@RequestParam("id") Long id) {
+    @GetMapping("/{companyId}/{id}/deleteCourse")
+    private String deleteCourse(@PathVariable("companyId") Long companyId, @PathVariable("id") Long id) {
         courseService.deleteCourse(id);
-        return "redirect:/course_api/allOfCourses";
+        return "redirect:/course_api/allOfCourses/" + companyId;
     }
 
 }

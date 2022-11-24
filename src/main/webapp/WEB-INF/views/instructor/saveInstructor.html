@@ -13,9 +13,10 @@
     </style>
 </head>
 <body>
-<form th:method="POST" th:action="@{save}" th:object="${newInstructor}">
+<form th:method="POST" th:action="@{/instructor_api/{id}/save(id=${courseId})}" th:object="${newInstructor}">
     <div class="mb-3">
         <label for="firstName" class="form-label">First name</label>
+        <input type="hidden" name="id" th:field="*{id}">
         <input type="text" class="form-control" id="firstName" th:field="*{firstName}">
     </div>
     <div class="mb-3">
@@ -28,7 +29,7 @@
     </div>
     <div class="mb-3">
         <label for="email" class="form-label">Email</label>
-        <input type="text" class="form-control" id="email" th:field="*{email}">
+        <input type="email" class="form-control" id="email" th:field="*{email}">
     </div>
     <div class="mb-3">
         <label for="specialization" class="form-label">Specialization</label>

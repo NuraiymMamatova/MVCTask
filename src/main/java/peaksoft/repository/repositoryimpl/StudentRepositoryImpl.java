@@ -1,6 +1,7 @@
 package peaksoft.repository.repositoryimpl;
 
 import org.springframework.stereotype.Repository;
+import peaksoft.entity.Group;
 import peaksoft.entity.Student;
 import peaksoft.repository.StudentRepository;
 
@@ -17,8 +18,11 @@ public class StudentRepositoryImpl implements StudentRepository {
     private EntityManager entityManager;
 
     @Override
-    public void saveStudent(Student student) {
-        entityManager.persist(student);
+    public void saveStudent(Long id, Student student) {
+        Group group = entityManager.find(Group.class, id);
+        group.addStudents(student);
+        student.setGroup(group);
+        entityManager.merge(group);
     }
 
     @Override
@@ -27,8 +31,14 @@ public class StudentRepositoryImpl implements StudentRepository {
     }
 
     @Override
-    public void updateStudent(Student student) {
-        entityManager.merge(student);
+    public void updateStudent(Long id, Student student) {
+        Student student1 = entityManager.find(Student.class, id);
+        student1.setFirstName(student.getFirstName());
+        student1.setLastName(student.getLastName());
+        student1.setPhoneNumber(student.getPhoneNumber());
+        student1.setPhoneNumber(student.getPhoneNumber());
+        student1.setStudyFormat(student.getStudyFormat());
+        entityManager.merge(student1);
     }
 
     @Override

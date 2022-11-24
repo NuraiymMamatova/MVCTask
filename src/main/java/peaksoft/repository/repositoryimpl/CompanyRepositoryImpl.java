@@ -1,6 +1,5 @@
 package peaksoft.repository.repositoryimpl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 import peaksoft.entity.Company;
 import peaksoft.repository.CompanyRepository;
@@ -16,9 +15,10 @@ public class CompanyRepositoryImpl implements CompanyRepository {
 
     @PersistenceContext
     private EntityManager entityManager;
+    
     @Override
     public void saveCompany(Company company) {
-        entityManager.merge(company);
+        entityManager.persist(company);
     }
 
     @Override

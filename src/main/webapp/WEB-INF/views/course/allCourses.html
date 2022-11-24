@@ -20,6 +20,7 @@
             <th>Name</th>
             <th>Duration</th>
             <th>Description</th>
+            <th>Company</th>
             <th>Lessons</th>
             <th>Groups</th>
             <th>Instructors</th>
@@ -41,34 +42,38 @@
                     <p th:text="${course.description}"/>
                 </td>
                 <td>
-                    <a th:href="@{/lesson_api/allOfLessons}">
+                <p th:text="${course.company.id}"/>
+            </td>
+                <td>
+                    <a th:href="@{/lesson_api/allOfLessons/{id}(id=${course.id})}">
                         <button style="width: 100px; height: 40px">Lessons</button>
                     </a>
                 </td>
                 <td>
-                    <a th:href="@{/instructor_api/allOfInstructors}">
-                        <button style="width: 100px; height: 40px">Instructors</button>
-                    </a>
-                </td>
-                <td>
-                    <a th:href="@{/group_api/allOfGroups}">
+                    <a th:href="@{/group_api/allOfGroups/{id}(id=${course.id})}">
                         <button style="width: 100px; height: 40px">Groups</button>
                     </a>
                 </td>
                 <td>
-                    <a th:href="@{/course_api/update(id = ${course.id})}">
+                <a th:href="@{/instructor_api/allOfInstructors/{id}(id=${course.id})}">
+                    <button style="width: 100px; height: 40px">Instructors</button>
+                </a>
+                </td>
+
+                <td>
+                    <a th:href="@{/course_api/update/{id}(id = ${course.id})}">
                         <button style="width: 100px; height: 40px;">Update</button>
                     </a>
                 </td>
                 <td>
-                <a th:href="@{/course_api/delete(id = ${course.id})}">
+                <a th:href="@{/course_api/{companyId}/{id}/deleteCourse(companyId = ${companyId}, id=${course.id})}">
                     <button style="width: 100px; height: 40px;">Delete</button>
                 </a>
             </td>
             </tr>
         </div>
     </table>
-    <a th:href="@{/course_api/new}">
+    <a th:href="@{/course_api/{id}/new(id=${companyId})}">
         <button style="width: 100px; height: 40px;">Add</button>
     </a>
 

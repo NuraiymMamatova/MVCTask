@@ -21,8 +21,8 @@ public class LessonServiceImpl implements LessonService {
     }
 
     @Override
-    public void saveLesson(Lesson lesson) {
-        lessonRepository.saveLesson(lesson);
+    public void saveLesson(Long id, Lesson lesson) {
+        lessonRepository.saveLesson(id, lesson);
     }
 
     @Override
@@ -31,8 +31,8 @@ public class LessonServiceImpl implements LessonService {
     }
 
     @Override
-    public void updateLesson(Lesson lesson) {
-        lessonRepository.updateLesson(lesson);
+    public void updateLesson(Long id, Lesson lesson) {
+        lessonRepository.updateLesson(id, lesson);
     }
 
     @Override

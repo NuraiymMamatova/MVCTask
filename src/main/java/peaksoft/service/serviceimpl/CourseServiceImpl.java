@@ -22,8 +22,8 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public void saveCourse(/*Long id,*/ Course course) {
-        courseRepository.saveCourse(/*id, */course);
+    public void saveCourse(Long id, Course course) {
+        courseRepository.saveCourse(id, course);
     }
 
     @Override
@@ -32,8 +32,8 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public void updateCourse(Course course) {
-        courseRepository.updateCourse(course);
+    public void updateCourse(Long id, Course course) {
+        courseRepository.updateCourse(id, course);
     }
 
     @Override
@@ -42,7 +42,7 @@ public class CourseServiceImpl implements CourseService {
     }
 
     @Override
-    public List<Course> getAllCourses(/*Long id*/) {
-        return courseRepository.getAllCourses(/*id*/);
+    public List<Course> getAllCourses() {
+        return courseRepository.getAllCourses();
     }
 }

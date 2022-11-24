@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static javax.persistence.CascadeType.*;
@@ -25,13 +26,20 @@ public class Lesson {
     @Column(name = "lesson_name")
     private String lessonName;
 
-//    @ManyToOne(cascade = {REFRESH, DETACH, MERGE, PERSIST}, fetch = FetchType.EAGER)
-//    private Course course;
-//
-//    @OneToMany(cascade = ALL, fetch = FetchType.LAZY, mappedBy = "lesson")
-//    private List<Task> tasks;
+    @ManyToOne(cascade = {MERGE, REFRESH, DETACH,  PERSIST}, fetch = FetchType.EAGER)
+    private Course course;
+
+    @OneToMany(cascade = ALL, fetch = FetchType.LAZY, mappedBy = "lesson")
+    private List<Task> tasks;
 
     public Lesson(String lessonName) {
         this.lessonName = lessonName;
+    }
+
+    public void addTasks(Task task) {
+        if (tasks == null) {
+            tasks = new ArrayList<>();
+        }
+        tasks.add(task);
     }
 }

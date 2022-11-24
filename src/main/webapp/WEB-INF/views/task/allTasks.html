@@ -20,6 +20,7 @@
             <th>Name</th>
             <th>Text</th>
             <th>Deadline</th>
+            <th>Lesson</th>
             <th>Update</th>
             <th>Delete</th>
         </tr>
@@ -37,14 +38,16 @@
                 <td>
                     <p th:text="${task.deadline}"></p>
                 </td>
-
                 <td>
-                    <a th:href="@{/task_api/update(id = ${task.id})}">
+                    <p th:text="${task.lesson.id}"/>
+                </td>
+                <td>
+                    <a th:href="@{/task_api/update/{id}(id = ${task.id})}">
                         <button style="width: 100px; height: 40px;">Update</button>
                     </a>
                 </td>
                 <td>
-                    <a th:href="@{/task_api/delete(id = ${task.id})}">
+                    <a th:href="@{/task_api/{lessonId}/{id}/delete(lessonId = ${lessonId}, id = ${task.id})}">
                         <button style="width: 100px; height: 40px;">Delete</button>
                     </a>
             </td>
@@ -54,10 +57,10 @@
             </tr>
         </div>
     </table>
-    <a th:href="@{/task_api/new}">
+    <a th:href="@{/task_api/{id}/new(id=${lessonId})}">
         <button style="width: 100px; height: 40px;">Add</button>
     </a>
-    <a th:href="@{/lesson_api/allOfLessons}">
+    <a th:href="@{/lesson_api/allOfLessons/{id}(id=${id})}">
         <button style="width: 100px; height: 40px;">Back</button>
     </a>
 </center>
