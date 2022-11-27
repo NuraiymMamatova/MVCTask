@@ -1,4 +1,4 @@
-package peaksoft.repository.repositoryimpl;
+package peaksoft.repository.impl;
 
 import org.springframework.stereotype.Repository;
 import peaksoft.entity.Course;
@@ -45,5 +45,10 @@ public class LessonRepositoryImpl implements LessonRepository {
     @Override
     public List<Lesson> getAllLessons() {
         return entityManager.createQuery("select l from Lesson l", Lesson.class).getResultList();
+    }
+
+    @Override
+    public List<Lesson> getAllLessons(Long id) {
+        return entityManager.createQuery("select l from Lesson l where l.course.id = :id", Lesson.class).setParameter("id", id).getResultList();
     }
 }

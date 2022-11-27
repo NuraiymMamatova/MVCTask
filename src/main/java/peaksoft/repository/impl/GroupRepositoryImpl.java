@@ -1,4 +1,4 @@
-package peaksoft.repository.repositoryimpl;
+package peaksoft.repository.impl;
 
 import org.springframework.stereotype.Repository;
 import peaksoft.entity.Course;
@@ -19,10 +19,7 @@ public class GroupRepositoryImpl implements GroupRepository {
 
     @Override
     public void saveGroup(Long id, Group group) {
-        Course course = entityManager.find(Course.class, id);
-        course.addGroup(group);
-        group.addCourse(course);
-        entityManager.merge(course);
+        entityManager.persist(group);
     }
 
     @Override
@@ -32,17 +29,11 @@ public class GroupRepositoryImpl implements GroupRepository {
 
     @Override
     public void updateGroup(Long id, Group group) {
-        System.out.println("repository 1");
         Group group1 = getGroupById(id);
-        System.out.println("repository 2");
         group1.setGroupName(group.getGroupName());
-        System.out.println("repository 3");
         group1.setDateOfStart(group.getDateOfStart());
-        System.out.println("repository 4");
         group1.setImage(group.getImage());
-        System.out.println("repository 5");
         entityManager.merge(group1);
-        System.out.println("repository 6");
     }
 
     @Override
@@ -55,8 +46,19 @@ public class GroupRepositoryImpl implements GroupRepository {
         return entityManager.createQuery("select g from Group g", Group.class).getResultList();
     }
 
-    public void getidwithotherid(Long id, List<Course> courses) {
+    @Override
+    public List<Group> getAllGroups(Long courseId) {
+        List<Group> groups = entityManager.find(Course.class, courseId).getGroups();
+        groups.forEach(System.out::println);
+        return groups;
+    }
 
+    public void assignGroupToCourse(Long groupId, Long courseId) {
+        Group group = entityManager.find(Group.class, groupId);
+        Course course = entityManager.find(Course.class, courseId);
+        course.addGroup(group);
+        group.addCourse(course);
+        entityManager.merge(course);
     }
 
 }

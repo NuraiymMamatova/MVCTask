@@ -1,4 +1,4 @@
-package peaksoft.service.serviceimpl;
+package peaksoft.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,5 +43,10 @@ public class LessonServiceImpl implements LessonService {
     @Override
     public List<Lesson> getAllLessons() {
         return lessonRepository.getAllLessons();
+    }
+
+    @Override
+    public List<Lesson> getAllLessons(Long id) {
+        return lessonRepository.getAllLessons(id);
     }
 }

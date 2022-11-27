@@ -13,13 +13,16 @@
     </style>
 </head>
 <body>
-<form th:method="POST" th:action="@{/lesson_api/{id}/save(id=${courseId})}" th:object="${newLesson}">
-    <div class="mb-3">
-        <label for="lessonName" class="form-label">Lesson name</label>
-        <input type="hidden" name="id" th:field="*{id}">
-        <input type="text" class="form-control" id="lessonName" th:field="*{lessonName}">
-    </div>
-    <button type="submit" class="btn btn-primary">Save</button>
-</form>
+<center style="margin-top: 255px">
+    <form class="row g-3"
+          th:action="@{/lesson_api/{id}/save(id=${courseId})}"
+          th:object="${newLesson}"
+          th:method="POST" >
+        <p>Lesson name:
+          <input   class="form-control is-valid" id="lessonName" type="text" th:field="*{lessonName}" placeholder="lesson name"/>
+          </p>
+        <p><input type="submit" value="Submit"/></p>
+    </form>
+</center>
 </body>
 </html>

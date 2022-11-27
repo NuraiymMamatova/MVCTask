@@ -1,4 +1,4 @@
-package peaksoft.repository.repositoryimpl;
+package peaksoft.repository.impl;
 
 import org.springframework.stereotype.Repository;
 import peaksoft.entity.Company;

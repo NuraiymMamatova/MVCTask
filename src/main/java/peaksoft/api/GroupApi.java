@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
-import peaksoft.entity.Course;
 import peaksoft.entity.Group;
 import peaksoft.service.GroupService;
 
@@ -26,6 +25,13 @@ public class GroupApi {
         return "/group/allGroups";
     }
 
+    @GetMapping("/allOfGroupss/{id}")
+    private String getAllGroupss(@PathVariable Long id, Model model) {
+        model.addAttribute("myAllGroup",  groupService.getAllGroups(id));
+        model.addAttribute("courseId", id);
+        return "/group/allGroupsById";
+    }
+
     @GetMapping("/{id}/new")
     private String newGroup(@PathVariable Long id,  Model model) {
         model.addAttribute("newGroup", new Group());
@@ -36,7 +42,7 @@ public class GroupApi {
     @PostMapping("/{id}/save")
     private String saveGroup(@ModelAttribute("newGroup") Group group, @PathVariable Long id) {
         groupService.saveGroup(id, group);
-        return "redirect:/group_api/allOfGroups/" + id;
+        return "redirect:/group_api/allOfGroupss/" + id;
     }
 
     @GetMapping("/update/{courseId}/{id}")
@@ -52,12 +58,12 @@ public class GroupApi {
         System.out.println("date group before");
         groupService.updateGroup(id, group);
         System.out.println("date group after");
-        return "redirect:/group_api/allOfGroups/" + courseId;
+        return "redirect:/group_api/allOfGroupss/" + courseId;
     }
 
     @RequestMapping("/{courseId}/{id}/delete")
     private String deleteGroup(@PathVariable("courseId") Long courseId, @PathVariable("id") Long id) {
         groupService.deleteGroup(id);
-        return "redirect:/group_api/allOfGroups/" + courseId;
+        return "redirect:/group_api/allOfGroupss/" + courseId;
     }
 }

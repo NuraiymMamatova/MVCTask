@@ -1,7 +1,6 @@
-package peaksoft.service.serviceimpl;
+package peaksoft.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import peaksoft.entity.Group;
 import peaksoft.repository.GroupRepository;
@@ -44,6 +43,11 @@ public class GroupServiceImpl implements GroupService {
     @Override
     public List<Group> getAllGroups() {
         return groupRepository.getAllGroups();
+    }
+
+    @Override
+    public List<Group> getAllGroups(Long courseId) {
+        return groupRepository.getAllGroups(courseId);
     }
 
 }

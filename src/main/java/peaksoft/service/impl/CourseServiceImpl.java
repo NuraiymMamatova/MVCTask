@@ -1,7 +1,6 @@
-package peaksoft.service.serviceimpl;
+package peaksoft.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.stereotype.Service;
 import peaksoft.entity.Course;
 import peaksoft.repository.CourseRepository;
@@ -44,5 +43,10 @@ public class CourseServiceImpl implements CourseService {
     @Override
     public List<Course> getAllCourses() {
         return courseRepository.getAllCourses();
+    }
+
+    @Override
+    public List<Course> getAllCourses(Long id) {
+        return courseRepository.getAllCourses(id);
     }
 }

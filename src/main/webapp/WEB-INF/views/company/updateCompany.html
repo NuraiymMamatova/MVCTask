@@ -5,11 +5,13 @@
     <title>Update company</title>
 </head>
 <body>
+<center>
     <form action="#" th:action="@{/company_api/update}" th:object="${updateCompany}" th:method="put">
         <p>Id: <input type="hidden" th:field="*{id}"/></p>
         <p>Company name: <input type="text" th:field="*{companyName}" placeholder="company name"/></p>
         <p>Located country: <input type="text" th:field="*{locatedCountry}" placeholder="located country"/></p>
         <p><input type="submit" value="Submit"/></p>
     </form>
+</center>
 </body>
 </html>

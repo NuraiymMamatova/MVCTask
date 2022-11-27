@@ -15,4 +15,6 @@ public interface StudentService {
     Student getStudentById(Long id);
 
     List<Student> getAllStudents();
+
+    List<Student> getAllStudents(Long id);
 }

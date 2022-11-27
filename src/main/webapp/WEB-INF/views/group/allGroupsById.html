@@ -5,7 +5,7 @@
     <title>All groups</title>
     <style>
         table, th, td {
-            margin-top: 255px;
+            margin-top:180px;
             border: 36px;
             color: black;
             width: 710px;
@@ -15,6 +15,7 @@
 <body>
 <center>
     <table>
+        <caption style="color: black; text-align: center"><h1>Groups</h1></caption>
         <tr>
             <th>Id</th>
             <th>Name</th>
@@ -24,7 +25,7 @@
             <th>Update</th>
             <th>Delete</th>
         </tr>
-        <div th:each="group:${allGroup}">
+        <div th:each="group:${myAllGroup}">
             <tr>
                 <td>
                     <p th:text="${group.id}"/>
@@ -36,10 +37,10 @@
                     <p th:text="${group.dateOfStart}"></p>
                 </td>
                 <td>
-                    <p th:text="${group.image}" alt="image"/>
+                    <p th:text="${group.image}"/>
                 </td>
                 <td>
-                    <a th:href="@{/student_api/allOfStudents/{id}(id=${group.id})}">
+                    <a th:href="@{/student_api/allOfStudentss/{id}(id=${group.id})}">
                         <button style="width: 100px; height: 40px;">Students</button>
                     </a>
                 </td>
@@ -57,11 +58,14 @@
         </div>
     </table>
     <a th:href="@{/group_api/{id}/new(id=${courseId})}">
-        <button style="width: 100px; height: 40px;">Add</button>
+        <button type="button" style="width: 100px; height: 40px;">Add</button>
     </a>
-    <a th:href="@{/course_api/allOfCourses/{id}(id=${id})}">
-        <button style="width: 100px; height: 40px;">Back</button>
+    <a th:href="@{/group_api/allOfGroups/{id}(id=${courseId})}">
+        <button type="button" style="width: 100px; height: 40px;">All groups</button>
     </a>
+        <a th:href="@{/company_api/allOfCompanies}">
+            <button style="width: 100px; height: 40px;">Main page</button>
+        </a>
 </center>
 </body>
 </html>

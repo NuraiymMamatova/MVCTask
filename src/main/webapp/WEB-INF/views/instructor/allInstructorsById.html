@@ -5,7 +5,7 @@
     <title>All instructors</title>
     <style>
         table, th, td {
-            margin-top: 255px;
+            margin-top: 180px;
             border: 36px;
             color: black;
             width: 710px;
@@ -15,6 +15,7 @@
 <body>
 <center>
     <table>
+        <caption style="text-align: center; color: black"><h1>Instructors</h1></caption>
         <tr>
             <th>Id</th>
             <th>First name</th>
@@ -26,7 +27,7 @@
             <th>Update</th>
             <th>Delete</th>
         </tr>
-        <div th:each="instructor:${allInstructor}">
+        <div th:each="instructor:${myAllInstructor}">
             <tr>
                 <td>
                     <p th:text="${instructor.id}"/>
@@ -68,8 +69,11 @@
     <a th:href="@{/instructor_api/{id}/new(id=${courseId})}">
         <button style="width: 100px; height: 40px;">Add</button>
     </a>
-    <a th:href="@{/course_api/allOfCourses/{id}(id=${id})}">
-        <button style="width: 100px; height: 40px;">Back</button>
+    <a th:href="@{/instructor_api/allOfInstructors/{id}(id=${courseId})}">
+        <button style="width: 100px; height: 40px;">All instructors</button>
+    </a>
+    <a th:href="@{/company_api/allOfCompanies}">
+        <button style="width: 100px; height: 40px;">Main page</button>
     </a>
 </center>
 </body>

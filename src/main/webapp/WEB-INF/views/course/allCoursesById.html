@@ -5,7 +5,7 @@
     <title>All courses</title>
     <style>
         table, th, td {
-            margin-top:255px;
+            margin-top:180px;
             border: 36px;
             color: black;
             width: 710px;
@@ -15,9 +15,10 @@
 <body>
 <center>
     <table>
+        <caption style="text-align: center; color: black"><h1>Courses</h1></caption>
         <tr>
             <th>Id</th>
-            <th>Name</th>
+            <th>Course name</th>
             <th>Duration</th>
             <th>Description</th>
             <th>Company</th>
@@ -27,7 +28,7 @@
             <th>Update</th>
             <th>Delete</th>
         </tr>
-        <div th:each="course:${allCourse}">
+        <div th:each="course:${myAllCourse}">
             <tr>
                 <td>
                     <p th:text="${course.id}"/>
@@ -42,24 +43,23 @@
                     <p th:text="${course.description}"/>
                 </td>
                 <td>
-                <p th:text="${course.company.id}"/>
-            </td>
+                     <p th:text="${course.company.id}"/>
+                </td>
                 <td>
-                    <a th:href="@{/lesson_api/allOfLessons/{id}(id=${course.id})}">
+                    <a th:href="@{/lesson_api/allOfLessonss/{id}(id=${course.id})}">
                         <button style="width: 100px; height: 40px">Lessons</button>
                     </a>
                 </td>
                 <td>
-                    <a th:href="@{/group_api/allOfGroups/{id}(id=${course.id})}">
+                    <a th:href="@{/group_api/allOfGroupss/{id}(id=${course.id})}">
                         <button style="width: 100px; height: 40px">Groups</button>
                     </a>
                 </td>
                 <td>
-                <a th:href="@{/instructor_api/allOfInstructors/{id}(id=${course.id})}">
+                <a th:href="@{/instructor_api/allOfInstructorss/{id}(id=${course.id})}">
                     <button style="width: 100px; height: 40px">Instructors</button>
                 </a>
                 </td>
-
                 <td>
                     <a th:href="@{/course_api/update/{id}(id = ${course.id})}">
                         <button style="width: 100px; height: 40px;">Update</button>
@@ -73,14 +73,16 @@
             </tr>
         </div>
     </table>
+
     <a th:href="@{/course_api/{id}/new(id=${companyId})}">
         <button style="width: 100px; height: 40px;">Add</button>
     </a>
-
     <a th:href="@{/company_api/allOfCompanies}">
         <button style="width: 100px; height: 40px;">Back</button>
     </a>
+    <a th:href="@{/course_api/allOfCourses/{id}(id=${companyId})}">
+        <button style="width: 100px; height: 40px;">All courses</button>
+    </a>
 </center>
-
 </body>
 </html>

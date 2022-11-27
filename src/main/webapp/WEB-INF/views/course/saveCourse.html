@@ -3,32 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Save course</title>
-    <style>
-        table, th, td {
-            margin-top: 255px;
-            border: 36px;
-            color: black;
-            width: 710px;
-        }
-    </style>
 </head>
 <body>
-<form th:method="POST" th:action="@{/course_api/{id}/save(id=${companyId})}" th:object="${newCourse}">
-    <div class="mb-3">
-        <label for="name" class="form-label">Course name</label>
+<center style="margin-top: 255px">
+    <form th:method="POST" th:action="@{/course_api/{id}/save(id=${companyId})}" th:object="${newCourse}">
         <input type="hidden" name="id" th:field="*{id}">
-        <input type="text" class="form-control" id="name" aria-describedby="helpCourse" th:field="*{courseName}">
-        <div id="helpCourse" class="form-text"></div>
-    </div>
-    <div class="mb-3">
-        <label for="duration" class="form-label">Duration</label>
-        <input type="number" class="form-control" id="duration" th:field="*{duration}">
-    </div>
-    <div class="mb-3">
-        <label for="description" class="form-label">Description</label>
-        <input type="text" class="form-control" id="description" th:field="*{description}">
-    </div>
-    <button type="submit" class="btn btn-primary">Save</button>
-</form>
+        <p>Course name: <input type="text" th:field="*{courseName}" placeholder="course name"/></p>
+        <p>Duration:    <input type="number" th:field="*{duration}" placeholder="duration"/></p>
+        <p>Description: <input type="text" th:field="*{description}" placeholder="description"/></p>
+        <p><input type="submit" value="Submit"/></p>
+    </form>
+</center>
 </body>
 </html>

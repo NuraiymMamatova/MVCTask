@@ -5,14 +5,14 @@
     <title>Update group</title>
 </head>
 <body>
-<form action="#" th:action="@{/group_api/{courseId}/{id}/update(courseId = ${courseId}, id=${updateGroup.id})}"
-      th:object="${updateGroup}"
-      th:method="put">
+<center style="margin-top: 255px">
+<form action="#" th:action="@{/group_api/{courseId}/{id}/update(courseId = ${courseId}, id=${updateGroup.id})}" th:object="${updateGroup}" th:method="put">
     <p>Id: <input type="hidden" th:field="*{id}"/></p>
     <p>Group name: <input type="text" th:field="*{groupName}" placeholder="group name"/></p>
     <p>Date of start: <input type="date" th:field="*{dateOfStart}" placeholder="date of start"/></p>
     <p>Image: <input type="text" th:field="*{image}" placeholder="image"/></p>
     <p><input type="submit" value="Submit"/></p>
 </form>
+</center>
 </body>
 </html>

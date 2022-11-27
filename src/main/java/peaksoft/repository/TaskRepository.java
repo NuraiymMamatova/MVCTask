@@ -15,4 +15,6 @@ public interface TaskRepository {
     Task getTaskById(Long id);
 
     List<Task> getAllTasks();
+
+    List<Task> getAllTasks(Long id);
 }
