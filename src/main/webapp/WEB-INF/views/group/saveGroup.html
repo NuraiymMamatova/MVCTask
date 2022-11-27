@@ -3,30 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <title>Save group</title>
-    <style>
-        table, th, td {
-            margin-top: 255px;
-            border: 36px;
-            color: black;
-            width: 710px;
-        }
-    </style>
 </head>
 <body>
-<form th:method="POST" th:action="@{/group_api/{id}/save(id=${courseId})}" th:object="${newGroup}">
-    <div class="mb-3">
-        <label for="name" class="form-label">Group name</label>
-        <input type="text" class="form-control" id="name" th:field="*{groupName}">
-    </div>
-    <div class="mb-3">
-        <label for="dateOfStart" class="form-label">Date of start</label>
-        <input type="date" class="form-control" id="dateOfStart" th:field="*{dateOfStart}">
-    </div>
-    <div class="mb-3">
-        <label for="image" class="form-label">Image</label>
-        <input type="text" class="form-control" id="image" th:field="*{image}">
-    </div>
-    <button type="submit" class="btn btn-primary">Save</button>
-</form>
+<center style="margin-top: 255px">
+    <form th:action="@{/group_api/{id}/save(id=${courseId})}" th:object="${newGroup}" th:method="POST">
+        <input type="hidden" name="id" th:field="*{id}">
+        <p>Group name: <input type="text" th:field="*{groupName}" placeholder="group name"/></p>
+        <p>Date of start: <input type="date" th:field="*{dateOfStart}" placeholder="date of start"/></p>
+        <p>Image: <input type="text" th:field="*{image}" placeholder="image"/></p>
+        <p><input type="submit" value="Submit"/></p>
+    </form>
+</center>
 </body>
 </html>

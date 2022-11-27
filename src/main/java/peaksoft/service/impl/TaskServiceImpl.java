@@ -1,4 +1,4 @@
-package peaksoft.service.serviceimpl;
+package peaksoft.service.impl;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -43,5 +43,10 @@ public class TaskServiceImpl implements TaskService {
     @Override
     public List<Task> getAllTasks() {
         return taskRepository.getAllTasks();
+    }
+
+    @Override
+    public List<Task> getAllTasks(Long id) {
+        return taskRepository.getAllTasks(id);
     }
 }

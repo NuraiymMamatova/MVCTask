@@ -25,6 +25,13 @@ public class TaskApi {
         return "/task/allTasks";
     }
 
+    @GetMapping("/allOfTaskss/{id}")
+    private String getAllTaskss(@PathVariable Long id,  Model model) {
+        model.addAttribute("myAllTask", taskService.getAllTasks(id));
+        model.addAttribute("lessonId", id);
+        return "/task/allTasksById";
+    }
+
     @GetMapping("/{id}/new")
     private String newTask(@PathVariable Long id, Model model) {
         model.addAttribute("newTask", new Task());
@@ -35,7 +42,7 @@ public class TaskApi {
     @PostMapping("/{id}/save")
     private String saveTask(@ModelAttribute("newTask") Task task, @PathVariable Long id) {
         taskService.saveTask(id, task);
-        return "redirect:/task_api/allOfTasks/" + id;
+        return "redirect:/task_api/allOfTaskss/" + id;
     }
 
     @GetMapping("/update/{id}")
@@ -49,13 +56,13 @@ public class TaskApi {
     @PostMapping("/{lessonId}/{id}/update")
     private String dateTask(@PathVariable("lessonId") Long lessonId, @PathVariable("id") Long id, @ModelAttribute("updateTask") Task task) {
         taskService.updateTask(id, task);
-        return "redirect:/task_api/allOfTasks/" + lessonId;
+        return "redirect:/task_api/allOfTaskss/" + lessonId;
     }
 
     @RequestMapping("/{lessonId}/{id}/delete")
     private String deleteTask(@PathVariable("lessonId")Long lessonId, @PathVariable("id") Long id) {
         taskService.deleteTask(id);
-        return "redirect:/task_api/allOfTasks/" + lessonId;
+        return "redirect:/task_api/allOfTaskss/" + lessonId;
     }
 
 }

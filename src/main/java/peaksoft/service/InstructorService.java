@@ -15,4 +15,8 @@ public interface InstructorService {
     Instructor getInstructorById(Long id);
 
     List<Instructor> getAllInstructors();
+
+    List<Instructor> getAllInstructors(Long id);
+
+    void assignInstructorToCourse(Long instructorId, Long courseId);
 }

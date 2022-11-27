@@ -3,30 +3,15 @@
 <head>
     <meta charset="UTF-8">
     <title>Save task</title>
-    <style>
-        table, th, td {
-            margin-top: 255px;
-            border: 36px;
-            color: black;
-            width: 710px;
-        }
-    </style>
 </head>
 <body>
-<form th:method="POST" th:action="@{/task_api/{id}/save(id=${lessonId})}" th:object="${newTask}">
-    <div class="mb-3">
-        <label for="name" class="form-label">Name</label>
-        <input type="text" class="form-control" id="name" th:field="*{taskName}">
-    </div>
-    <div class="mb-3">
-        <label for="text" class="form-label">Text</label>
-        <input type="text" class="form-control" id="text" th:field="*{taskText}">
-    </div>
-    <div class="mb-3">
-    <label for="deadline" class="form-label">Deadline</label>
-    <input type="date" class="form-control" id="deadline" th:field="*{deadline}">
-</div>
-    <button type="submit" class="btn btn-primary">Save</button>
-</form>
+<center style="margin-top: 255px">
+    <form th:action="@{/task_api/{id}/save(id=${lessonId})}" th:object="${newTask}" th:method="POST"  >
+        <p>Task name: <input type="text" th:field="*{taskName}" placeholder="task name"/></p>
+        <p>Text: <input type="text" th:field="*{taskText}" placeholder="task text"/></p>
+        <p>Deadline: <input type="date" th:field="*{deadline}" placeholder="deadline"/></p>
+        <p><input type="submit" value="Submit"/></p>
+    </form>
+</center>
 </body>
 </html>

@@ -16,4 +16,6 @@ public interface StudentRepository {
     Student getStudentById(Long id);
 
     List<Student> getAllStudents();
+
+    List<Student> getAllStudents(Long id);
 }

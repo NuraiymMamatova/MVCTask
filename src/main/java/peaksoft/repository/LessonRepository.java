@@ -16,4 +16,6 @@ public interface LessonRepository {
     Lesson getLessonById(Long id);
 
     List<Lesson> getAllLessons();
+
+    List<Lesson> getAllLessons(Long id);
 }

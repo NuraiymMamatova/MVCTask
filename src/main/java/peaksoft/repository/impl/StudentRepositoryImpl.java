@@ -1,4 +1,4 @@
-package peaksoft.repository.repositoryimpl;
+package peaksoft.repository.impl;
 
 import org.springframework.stereotype.Repository;
 import peaksoft.entity.Group;
@@ -19,10 +19,7 @@ public class StudentRepositoryImpl implements StudentRepository {
 
     @Override
     public void saveStudent(Long id, Student student) {
-        Group group = entityManager.find(Group.class, id);
-        group.addStudents(student);
-        student.setGroup(group);
-        entityManager.merge(group);
+        entityManager.persist(student);
     }
 
     @Override
@@ -49,5 +46,18 @@ public class StudentRepositoryImpl implements StudentRepository {
     @Override
     public List<Student> getAllStudents() {
         return entityManager.createQuery("select s from Student  s", Student.class).getResultList();
+    }
+
+    @Override
+    public List<Student> getAllStudents(Long id) {
+        return entityManager.createQuery("select s from Student  s where s.group.id = :id", Student.class).setParameter("id", id).getResultList();
+    }
+
+    public void assignStudentToGroup(Long studentId, Long groupId) {
+        Student student = entityManager.find(Student.class, studentId);
+        Group group = entityManager.find(Group.class, groupId);
+        group.addStudents(student);
+        student.setGroup(group);
+        entityManager.merge(group);
     }
 }

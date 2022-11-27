@@ -30,6 +30,7 @@ public class Student {
     @Column(name = "phone_number")
     private String phoneNumber;
 
+    @Column(unique = true)
     private String email;
 
     @Column(name = "study_format")

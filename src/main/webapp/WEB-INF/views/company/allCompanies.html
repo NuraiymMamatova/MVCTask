@@ -5,7 +5,7 @@
     <title>All companies</title>
     <style>
         table, th, td {
-            margin-top: 255px;
+            margin-top:180px;
             border: 36px;
             color: black;
             width: 710px;
@@ -15,9 +15,10 @@
 <body>
 <center>
     <table>
+        <caption style="text-align: center; color: black"><h1>Companies</h1></caption>
         <tr>
             <th>Id</th>
-            <th>Name</th>
+            <th>Company name</th>
             <th>Located country</th>
             <th>Courses</th>
             <th>Update</th>
@@ -36,7 +37,7 @@
                 </td>
 
                 <td>
-                    <a th:href="@{/course_api/allOfCourses/{id}(id=${company.id})}">
+                    <a th:href="@{/course_api/allOfCoursess/{id}(id=${company.id})}">
                         <button style="width: 100px; height: 40px;">Courses</button>
                     </a>
                 </td>

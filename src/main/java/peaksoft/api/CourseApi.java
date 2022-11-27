@@ -25,6 +25,13 @@ public class CourseApi {
         return "/course/allCourses";
     }
 
+    @GetMapping("/allOfCoursess/{id}")
+    private String getAllCoursess(@PathVariable Long id,  Model model) {
+        model.addAttribute("myAllCourse", courseService.getAllCourses(id));
+        model.addAttribute("companyId", id);
+        return "/course/allCoursesById";
+    }
+
     @GetMapping("/{id}/new")
     private String newCourse(@PathVariable Long id, Model model) {
         model.addAttribute("newCourse", new Course());
@@ -35,7 +42,7 @@ public class CourseApi {
     @PostMapping("/{id}/save")
     private String saveCourse(@ModelAttribute("newCourse") Course course, @PathVariable Long id) {
         courseService.saveCourse(id, course);
-        return "redirect:/course_api/allOfCourses/" + id;
+        return "redirect:/course_api/allOfCoursess/" + id;
     }
 
     @GetMapping("/update/{id}")
@@ -49,13 +56,13 @@ public class CourseApi {
     @PostMapping("/{companyId}/{id}/update")
     private String dateCourse(@PathVariable("companyId")Long companyId, @PathVariable("id") Long id, @ModelAttribute("updateCourse") Course course) {
         courseService.updateCourse(id, course);
-        return "redirect:/course_api/allOfCourses/" + companyId;
+        return "redirect:/course_api/allOfCoursess/" + companyId;
     }
 
     @GetMapping("/{companyId}/{id}/deleteCourse")
     private String deleteCourse(@PathVariable("companyId") Long companyId, @PathVariable("id") Long id) {
         courseService.deleteCourse(id);
-        return "redirect:/course_api/allOfCourses/" + companyId;
+        return "redirect:/course_api/allOfCoursess/" + companyId;
     }
 
 }

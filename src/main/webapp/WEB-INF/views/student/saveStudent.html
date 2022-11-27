@@ -13,34 +13,26 @@
     </style>
 </head>
 <body>
-<form th:method="POST" th:action="@{/student_api/{id}/save(id = ${groupId})}" th:object="${newStudent}">
-    <div class="mb-3">
-        <label for="firstName" class="form-label">First name</label>
-        <input type="hidden" name="id" th:field="*{id}">
-        <input type="text" class="form-control" id="firstName" aria-describedby="helpCourse" th:field="*{firstName}">
-        <div id="helpCourse" class="form-text"></div>
-    </div>
-    <div class="mb-3">
-        <label for="lastName" class="form-label">Last name</label>
-        <input type="text" class="form-control" id="lastName" th:field="*{lastName}">
-    </div>
-    <div class="mb-3">
-        <label for="phoneNumber" class="form-label">Phone number</label>
-        <input type="text" class="form-control" id="phoneNumber" th:field="*{phoneNumber}">
-    </div>
-    <div class="mb-3">
-        <label for="email" class="form-label">Email</label>
-        <input type="email" class="form-control" id="email" th:field="*{email}">
-    </div>
-    <div class="mb-3">
-        <label>Study Format
-            <select>
-                <option th:each="studyFormat : ${T(peaksoft.enums.StudyFormat).values()}"
-                        th:value="${studyFormat}" th:text="${studyFormat.displayValue}"></option>
-            </select>
+<center style="margin-top: 255px">
+    <form th:action="@{/student_api/{id}/save(id = ${groupId})}" th:object="${newStudent}" th:method="POST">
+        <input type="hidden" th:field="*{id}" >
+        <p>First name: <label>
+            <input type="text" th:field="*{firstName}" placeholder="first name"/>
+        </label></p>
+        <p>Last name: <label>
+            <input type="text" th:field="*{lastName}" placeholder="last name"/>
+        </label></p>
+        <p>Phone number: <label>
+            <input  type="tel" pattern="[0-9]{12}" th:field="*{phoneNumber}" placeholder="phone number"/>
+        </label></p>
+        <p>Email: <label>
+            <input type="email" th:field="*{email}" placeholder="email"/>
+        </label></p>
+        <p>Study format: <label>
+            <input class="studyFormat" type="text" th:field="*{studyFormat}" placeholder="study format">
         </label>
-    </div>
-    <button type="submit" class="btn btn-primary">Save</button>
-</form>
+        <p><input type="submit" value="Submit"/></p>
+    </form>
+</center>
 </body>
 </html>

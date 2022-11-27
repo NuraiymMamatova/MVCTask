@@ -16,4 +16,6 @@ public interface GroupRepository {
 
     List<Group> getAllGroups();
 
+    List<Group> getAllGroups(Long courseId);
+
 }

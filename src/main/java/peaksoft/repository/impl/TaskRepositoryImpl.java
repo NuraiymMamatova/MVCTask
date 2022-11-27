@@ -1,4 +1,4 @@
-package peaksoft.repository.repositoryimpl;
+package peaksoft.repository.impl;
 
 import org.springframework.stereotype.Repository;
 import peaksoft.entity.Lesson;
@@ -47,5 +47,10 @@ public class TaskRepositoryImpl implements TaskRepository {
     @Override
     public List<Task> getAllTasks() {
         return entityManager.createQuery("select t from Task t", Task.class).getResultList();
+    }
+
+    @Override
+    public List<Task> getAllTasks(Long id) {
+        return entityManager.createQuery("select t from Task t where t.lesson.id = :id", Task.class).setParameter("id", id).getResultList();
     }
 }

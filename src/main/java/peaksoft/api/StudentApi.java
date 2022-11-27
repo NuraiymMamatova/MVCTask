@@ -25,6 +25,13 @@ public class StudentApi {
         return "/student/allStudents";
     }
 
+    @GetMapping("/allOfStudentss/{id}")
+    private String getAllLessonss(@PathVariable Long id, Model model) {
+        model.addAttribute("myAllStudent", studentService.getAllStudents(id));
+        model.addAttribute("groupId", id);
+        return "/student/allStudentsById";
+    }
+
     @GetMapping("/{id}/new")
     private String newStudent(@PathVariable Long id, Model model) {
         model.addAttribute("newStudent", new Student());
@@ -35,7 +42,7 @@ public class StudentApi {
     @PostMapping("/{id}/save")
     private String saveStudent(@ModelAttribute("newStudent") Student student, @PathVariable Long id) {
         studentService.saveStudent(id, student);
-        return "redirect:/student_api/allOfStudents/" + id;
+        return "redirect:/student_api/allOfStudentss/" + id;
     }
 
     @GetMapping("/update/{id}")
@@ -49,12 +56,12 @@ public class StudentApi {
     @PostMapping("/{groupId}/{id}/update")
     private String dateStudent(@PathVariable("groupId") Long groupId, @PathVariable("id") Long id, @ModelAttribute("updateStudent") Student student) {
         studentService.updateStudent(id, student);
-        return "redirect:/student_api/allOfStudents/" + groupId;
+        return "redirect:/student_api/allOfStudentss/" + groupId;
     }
 
     @RequestMapping("/{groupId}/{id}/delete")
     private String deleteStudent(@PathVariable("groupId") Long groupId, @PathVariable("id") Long id) {
         studentService.deleteStudent(id);
-        return "redirect:/student_api/allOfStudents/" + groupId;
+        return "redirect:/student_api/allOfStudentss/" + groupId;
     }
 }
