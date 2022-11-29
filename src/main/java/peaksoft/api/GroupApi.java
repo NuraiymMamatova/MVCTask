@@ -75,9 +75,4 @@ public class GroupApi {
         return "redirect:/group_api/allOfGroupss/" + courseId;
     }
 
-    @PostMapping("/{groupId}/assignStudent")
-    private String assignStudent(@PathVariable("groupId") Long groupId, @ModelAttribute("student") Student student) throws IOException {
-        studentService.assignStudentToGroup(student.getId(), groupId);
-        return "redirect:/group_api/allOfGroupss/" + groupId;
-    }
 }

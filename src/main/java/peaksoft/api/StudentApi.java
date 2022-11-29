@@ -4,9 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import peaksoft.entity.Group;
 import peaksoft.entity.Student;
 import peaksoft.enums.StudyFormat;
+import peaksoft.service.GroupService;
 import peaksoft.service.StudentService;
+
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/student_api")
@@ -14,22 +18,29 @@ public class StudentApi {
 
     private final StudentService studentService;
 
+    private final GroupService groupService;
+
     @Autowired
-    public StudentApi(StudentService studentService) {
+    public StudentApi(StudentService studentService, GroupService groupService) {
         this.studentService = studentService;
+        this.groupService = groupService;
     }
 
     @GetMapping("/allOfStudents/{id}")
-    private String getAllLessons(@PathVariable Long id, Model model) {
+    private String getAllStudents(@PathVariable Long id, @ModelAttribute("group") Group group, Model model) {
         model.addAttribute("allStudent", studentService.getAllStudents());
+        model.addAttribute("groups", groupService.getAllGroups());
         model.addAttribute("groupId", id);
         return "/student/allStudents";
     }
 
     @GetMapping("/allOfStudentss/{id}")
-    private String getAllLessonss(@PathVariable Long id, Model model) {
+    private String getAllStudentss(@PathVariable Long id, Model model) {
+        System.out.println("all studentss 1");
         model.addAttribute("myAllStudent", studentService.getAllStudents(id));
+        System.out.println("all studentss 2");
         model.addAttribute("groupId", id);
+        System.out.println("all studentss 3");
         return "/student/allStudentsById";
     }
 
@@ -68,5 +79,11 @@ public class StudentApi {
     private String deleteStudent(@PathVariable("groupId") Long groupId, @PathVariable("id") Long id) {
         studentService.deleteStudent(id);
         return "redirect:/student_api/allOfStudentss/" + groupId;
+    }
+
+    @PostMapping("/{studentId}/assignStudentToGroup")
+    private String assignStudentToGroup(@PathVariable("studentId") Long studentId, @ModelAttribute("group") Group group) throws IOException {
+        studentService.assignStudentToGroup(studentId, group.getId());
+        return "redirect:/student_api/allOfStudentss/" + studentId;
     }
 }

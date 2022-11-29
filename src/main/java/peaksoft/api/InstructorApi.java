@@ -4,7 +4,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import peaksoft.entity.Course;
 import peaksoft.entity.Instructor;
+import peaksoft.service.CourseService;
 import peaksoft.service.InstructorService;
 
 import java.io.IOException;
@@ -15,14 +17,18 @@ public class InstructorApi {
 
     private final InstructorService instructorService;
 
+    private final CourseService courseService;
+
     @Autowired
-    public InstructorApi(InstructorService instructorService) {
+    public InstructorApi(InstructorService instructorService, CourseService courseService) {
         this.instructorService = instructorService;
+        this.courseService = courseService;
     }
 
     @GetMapping("/allOfInstructors/{id}")
-    private String getAllInstructors(@PathVariable Long id, Model model) {
+    private String getAllInstructors(@PathVariable Long id, @ModelAttribute("course") Course course, Model model) {
         model.addAttribute("allInstructor", instructorService.getAllInstructors());
+        model.addAttribute("courses", courseService.getAllCourses());
         model.addAttribute("courseId", id);
         return "/instructor/allInstructors";
     }
@@ -67,17 +73,10 @@ public class InstructorApi {
          return "redirect:/instructor_api/allOfInstructorss/" + courseId;
     }
 
-//    @GetMapping("/{courseId}/{instructorId}/assignNew")
-//    private String newAssign(@PathVariable("courseId")Long courseId, @PathVariable("instructorId")Long instructorId, Model model) {
-//        model.addAttribute("courseId", courseId);
-//        model.addAttribute("instructorId", instructorId);
-//        return "/course/allCourses";
-//    }
-
-    @PostMapping("/{courseId}/{instructorId}/assignInstructorToCourse")
-    private String assignInstructorToCourse(@PathVariable("courseId") Long courseId, @PathVariable("instructorId") Long instructorId) throws IOException {
-        instructorService.assignInstructorToCourse(instructorId, courseId);
-        return "/instructor/allInstructors";
+    @PostMapping("/{instructorId}/assignInstructorToCourse")
+    private String assignInstructorToCourse(@PathVariable("instructorId") Long instructorId, @ModelAttribute("course") Course course) throws IOException {
+        instructorService.assignInstructorToCourse(instructorId, course.getId());
+        return "redirect:/course_api/allOfCoursess/" + course.getId();
     }
 
 }

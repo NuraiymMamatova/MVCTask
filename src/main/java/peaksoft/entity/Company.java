@@ -26,6 +26,9 @@ public class Company {
     @Column(name = "located_country")
     private String locatedCountry;
 
+    @Column(name = "count_of_students")
+    private Long count = 0L;
+
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "company")
     private List<Course> courses;
 
@@ -40,5 +43,13 @@ public class Company {
         }
         courses.add(course);
 
+    }
+
+    public void plus() {
+        count++;
+    }
+
+    public void minus() {
+        count--;
     }
 }

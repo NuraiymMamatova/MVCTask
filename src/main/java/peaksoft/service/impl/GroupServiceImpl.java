@@ -7,6 +7,7 @@ import peaksoft.repository.GroupRepository;
 import peaksoft.service.GroupService;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -50,7 +51,7 @@ public class GroupServiceImpl implements GroupService {
         return groupRepository.getAllGroups(courseId);
     }
 
-    public void assignGroupToCourse(Long groupId, Long courseId) {
+    public void assignGroupToCourse(Long groupId, Long courseId) throws IOException {
         groupRepository.assignGroupToCourse(groupId, courseId);
     }
 

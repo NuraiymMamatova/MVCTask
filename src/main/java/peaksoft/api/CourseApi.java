@@ -79,16 +79,18 @@ public class CourseApi {
         return "redirect:/course_api/allOfCoursess/" + companyId;
     }
 
-    @PostMapping("/{courseId}/assignGroup")
-    private String assignGroup(@PathVariable Long courseId, @ModelAttribute("group") Group group) {
-        groupService.assignGroupToCourse(courseId, group.getId());
-        return "redirect:/allOfCoursess/" + courseId;
+    @PostMapping("/{courseId}/assignGroupToCourse")
+    private String assignGroupToCourse(@PathVariable Long courseId, @ModelAttribute("group") Group group) throws IOException {
+        System.out.println("assign group to course 1");
+        groupService.assignGroupToCourse( group.getId(), courseId);
+        System.out.println("assign group to course 2");
+        return "redirect:/course_api/allOfCoursess/" + courseId;
     }
 
-    @PostMapping("/{courseId}/assignInstructor")
+/*    @PostMapping("/{courseId}/assignInstructor")
     private String assignInstructorToCourse(@PathVariable("courseId") Long courseId, @ModelAttribute("instructor")Instructor instructor) throws IOException {
         instructorService.assignInstructorToCourse(instructor.getId(), courseId);
         return "redirect:/allOfCoursess/" + courseId;
-    }
+    }*/
 
 }

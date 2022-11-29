@@ -13,12 +13,6 @@
         <p>Phone number: <input type="text" th:field="*{phoneNumber}" placeholder="phone number"/></p>
         <p>Email: <input type="email" th:field="*{email}" placeholder="email"/></p>
         <p>Specialization: <input type="text" th:field="*{specialization}" placeholder="specialization"/></p>
-        <p><label>
-            <select th:field="*{course}">
-                <option th:each="${courseId}" th:value=""></option>
-            </select>
-        </label>
-        </p>
         <p><input type="submit" value="Submit"/></p>
     </form>
 </center>

@@ -33,6 +33,9 @@ public class Instructor {
 
     private String specialization;
 
+    @Column(name = "count_of_students")
+    private Long count;
+
     @ManyToOne(cascade = {MERGE, REFRESH, DETACH, PERSIST}, fetch = FetchType.EAGER)
     private Course course;
 
@@ -44,5 +47,12 @@ public class Instructor {
         this.specialization = specialization;
     }
 
+    public void plus() {
+        count++;
+    }
+
+    public void minus() {
+        count--;
+    }
 
 }
