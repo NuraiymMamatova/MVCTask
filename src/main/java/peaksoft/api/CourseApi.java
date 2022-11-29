@@ -5,7 +5,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import peaksoft.entity.Course;
+import peaksoft.entity.Group;
+import peaksoft.entity.Instructor;
 import peaksoft.service.CourseService;
+import peaksoft.service.GroupService;
+import peaksoft.service.InstructorService;
+
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/course_api")
@@ -13,9 +19,15 @@ public class CourseApi {
 
     private final CourseService courseService;
 
+    private final GroupService groupService;
+
+    private final InstructorService instructorService;
+
     @Autowired
-    public CourseApi(CourseService courseService) {
+    public CourseApi(CourseService courseService, GroupService groupService, InstructorService instructorService) {
         this.courseService = courseService;
+        this.groupService = groupService;
+        this.instructorService = instructorService;
     }
 
     @GetMapping("/allOfCourses/{id}")
@@ -26,9 +38,11 @@ public class CourseApi {
     }
 
     @GetMapping("/allOfCoursess/{id}")
-    private String getAllCoursess(@PathVariable Long id,  Model model) {
+    private String getAllCoursess(@PathVariable Long id, @ModelAttribute("group") Group group, @ModelAttribute("instructor") Instructor instructor, Model model) {
         model.addAttribute("myAllCourse", courseService.getAllCourses(id));
         model.addAttribute("companyId", id);
+        model.addAttribute("groups", groupService.getAllGroups());
+        model.addAttribute("instructors", instructorService.getAllInstructors());
         return "/course/allCoursesById";
     }
 
@@ -64,5 +78,19 @@ public class CourseApi {
         courseService.deleteCourse(id);
         return "redirect:/course_api/allOfCoursess/" + companyId;
     }
+
+    @PostMapping("/{courseId}/assignGroupToCourse")
+    private String assignGroupToCourse(@PathVariable Long courseId, @ModelAttribute("group") Group group) throws IOException {
+        System.out.println("assign group to course 1");
+        groupService.assignGroupToCourse( group.getId(), courseId);
+        System.out.println("assign group to course 2");
+        return "redirect:/course_api/allOfCoursess/" + courseId;
+    }
+
+/*    @PostMapping("/{courseId}/assignInstructor")
+    private String assignInstructorToCourse(@PathVariable("courseId") Long courseId, @ModelAttribute("instructor")Instructor instructor) throws IOException {
+        instructorService.assignInstructorToCourse(instructor.getId(), courseId);
+        return "redirect:/allOfCoursess/" + courseId;
+    }*/
 
 }

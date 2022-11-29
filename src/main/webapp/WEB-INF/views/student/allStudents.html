@@ -2,7 +2,7 @@
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
-    <title>All students by group id</title>
+    <title>All students</title>
     <style>
         table, th, td {
             margin-top: 180px;
@@ -24,10 +24,8 @@
             <th>Email</th>
             <th>Study format</th>
             <th>Group</th>
-            <th>Update</th>
-            <th>Delete</th>
         </tr>
-        <div th:each="student:${myAllStudent}">
+        <div th:each="student:${allStudent}">
             <tr>
                 <td>
                     <p th:text="${student.id}"/>
@@ -48,31 +46,17 @@
                     <p th:text="${student.studyFormat}"/>
                 </td>
                 <td>
-                    <p th:text="${student.group.id}"/>
-                </td>
-                <td>
-                    <a th:href="@{/student_api/update/{id}(id = ${student.id})}">
-                        <button style="width: 100px; height: 40px;">Update</button>
-                    </a>
-                </td>
-                <td>
-                <a th:href="@{/student_api/{groupId}/{id}/delete(groupId = ${groupId}, id = ${student.id})}">
-                    <button style="width: 100px; height: 40px;">Delete</button>
-                </a>
-            </td>
-                <td>
-
+                    <form th:method="POST" th:action="@{/student_api/{studentId}/assignStudentToGroup(studentId=${student.getId()})}">
+                        <select name="group" class="form-select form-select-sm" aria-label=".form-select-sm example" th:object="${group}" th:field="*{id}">
+                            <option th:each="group : ${groups}" th:value="${group.id}" th:text="${group.groupName}">
+                            </option>
+                        </select>
+                        <input type="submit" value="submit"/>
+                    </form>
                 </td>
             </tr>
         </div>
     </table>
-    <a th:href="@{/student_api/{id}/new(id=${groupId})}">
-        <button style="width: 100px; height: 40px;">Add</button>
-    </a>
-    <a th:href="@{/student_api/allOfStudents/{id}(id=${groupId})}">
-        <button style="width: 100px; height: 40px;">All students</button>
-    </a>
 </center>
 </body>
-
-<!--повесть о конце света-->
+</html>

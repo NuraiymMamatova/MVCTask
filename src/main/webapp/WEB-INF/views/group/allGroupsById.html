@@ -50,10 +50,11 @@
                 </a>
             </td>
                 <td>
-                    <a th:href="@{/group_api/{courseId}/{id}/delete(courseId= ${courseId}, id = ${group.id})}">
+                    <a th:href="@{/group_api/{courseId}/{id}/delete(courseId= ${courseId}, id = ${group.id})}" onclick="return confirm('Are you sure to delete this course?');">
                         <button style="width: 100px; height: 40px;">Delete</button>
                     </a>
                 </td>
+
             </tr>
         </div>
     </table>

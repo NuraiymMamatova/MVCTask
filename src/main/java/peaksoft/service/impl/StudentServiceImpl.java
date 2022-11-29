@@ -7,6 +7,7 @@ import peaksoft.repository.StudentRepository;
 import peaksoft.service.StudentService;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -48,5 +49,10 @@ public class StudentServiceImpl implements StudentService {
     @Override
     public List<Student> getAllStudents(Long id) {
         return studentRepository.getAllStudents(id);
+    }
+
+    @Override
+    public void assignStudentToGroup(Long studentId, Long groupId) throws IOException {
+        studentRepository.assignStudentToGroup(studentId, groupId);
     }
 }

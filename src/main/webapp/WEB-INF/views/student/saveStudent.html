@@ -28,9 +28,13 @@
         <p>Email: <label>
             <input type="email" th:field="*{email}" placeholder="email"/>
         </label></p>
-        <p>Study format: <label>
-            <input class="studyFormat" type="text" th:field="*{studyFormat}" placeholder="study format">
-        </label>
+        <p>Study format:
+            <label>
+                <input th:field="*{studyFormat}" type="radio" th:value="${StudyFormatOnline}">
+            </label>Online
+            <label>
+                <input th:field="*{studyFormat}" type="radio" th:value="${StudyFormatOffline}">
+            </label>Offline
         <p><input type="submit" value="Submit"/></p>
     </form>
 </center>

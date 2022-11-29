@@ -23,7 +23,8 @@
             <th>Description</th>
             <th>Company</th>
             <th>Lessons</th>
-            <th>Groups</th>
+            <th>Groups submit</th>
+            <th>Groups add</th>
             <th>Instructors</th>
             <th>Update</th>
             <th>Delete</th>
@@ -51,8 +52,17 @@
                     </a>
                 </td>
                 <td>
+                    <form th:method="POST" th:action="@{/course_api/{courseId}/assignGroupToCourse(courseId=${course.getId()})}">
+                        <select name="group" class="form-select form-select-sm" aria-label=".form-select-sm example" th:object="${group}" th:field="*{id}">
+                            <option th:each="group : ${groups}" th:value="${group.id}" th:text="${group.groupName}">
+                            </option>
+                        </select>
+                        <input type="submit" value="submit"/>
+                    </form>
+                </td>
+                <td>
                     <a th:href="@{/group_api/allOfGroupss/{id}(id=${course.id})}">
-                        <button style="width: 100px; height: 40px">Groups</button>
+                        <button style="width: 100px; height: 40px">All groups</button>
                     </a>
                 </td>
                 <td>

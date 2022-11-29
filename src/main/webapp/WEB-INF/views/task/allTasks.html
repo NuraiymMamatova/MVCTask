@@ -22,10 +22,8 @@
             <th>Text</th>
             <th>Deadline</th>
             <th>Lesson</th>
-            <th>Update</th>
-            <th>Delete</th>
         </tr>
-        <div th:each="task:${myAllTask}">
+        <div th:each="task:${allTask}">
             <tr>
                 <td>
                     <p th:text="${task.id}"/>
@@ -43,30 +41,11 @@
                     <p th:text="${task.lesson.id}"/>
                 </td>
                 <td>
-                    <a th:href="@{/task_api/update/{id}(id = ${task.id})}">
-                        <button style="width: 100px; height: 40px;">Update</button>
-                    </a>
-                </td>
-                <td>
-                    <a th:href="@{/task_api/{lessonId}/{id}/delete(lessonId = ${lessonId}, id = ${task.id})}">
-                        <button style="width: 100px; height: 40px;">Delete</button>
-                    </a>
-            </td>
-                <td>
 
                 </td>
             </tr>
         </div>
     </table>
-    <a th:href="@{/task_api/{id}/new(id=${lessonId})}">
-        <button style="width: 100px; height: 40px;">Add</button>
-    </a>
-    <a th:href="@{/task_api/allOfTasks/{id}(id=${lessonId})}">
-        <button style="width: 100px; height: 40px;">All Tasks</button>
-    </a>
-    <a th:href="@{/company_api/allOfCompanies}">
-        <button style="width: 100px; height: 40px;">Back</button>
-    </a>
 </center>
 </body>
 </html>
