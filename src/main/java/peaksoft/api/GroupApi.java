@@ -5,17 +5,23 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import peaksoft.entity.Group;
+import peaksoft.entity.Student;
 import peaksoft.service.GroupService;
+import peaksoft.service.StudentService;
+
+import java.io.IOException;
 
 @Controller
 @RequestMapping("/group_api")
 public class GroupApi {
 
     private final GroupService groupService;
+    private final StudentService studentService;
 
     @Autowired
-    public GroupApi(GroupService groupService) {
+    public GroupApi(GroupService groupService, StudentService studentService) {
         this.groupService = groupService;
+        this.studentService = studentService;
     }
 
     @GetMapping("/allOfGroups/{id}")
@@ -26,9 +32,12 @@ public class GroupApi {
     }
 
     @GetMapping("/allOfGroupss/{id}")
-    private String getAllGroupss(@PathVariable Long id, Model model) {
+    private String getAllGroupss(@PathVariable Long id,
+                                 @ModelAttribute("student") Student student,
+                                 Model model) {
         model.addAttribute("myAllGroup",  groupService.getAllGroups(id));
         model.addAttribute("courseId", id);
+        model.addAttribute("students", studentService.getAllStudents());
         return "/group/allGroupsById";
     }
 
@@ -47,8 +56,7 @@ public class GroupApi {
 
     @GetMapping("/update/{courseId}/{id}")
     private String upGroup(@PathVariable("id")Long id, @PathVariable("courseId")Long courseId, Model model) {
-        Group group = groupService.getGroupById(id);
-        model.addAttribute("updateGroup", group);
+        model.addAttribute("updateGroup", groupService.getGroupById(id));
         model.addAttribute("courseId", courseId);
         return "/group/updateGroup";
     }
@@ -65,5 +73,11 @@ public class GroupApi {
     private String deleteGroup(@PathVariable("courseId") Long courseId, @PathVariable("id") Long id) {
         groupService.deleteGroup(id);
         return "redirect:/group_api/allOfGroupss/" + courseId;
+    }
+
+    @PostMapping("/{groupId}/assignStudent")
+    private String assignStudent(@PathVariable("groupId") Long groupId, @ModelAttribute("student") Student student) throws IOException {
+        studentService.assignStudentToGroup(student.getId(), groupId);
+        return "redirect:/group_api/allOfGroupss/" + groupId;
     }
 }

@@ -51,9 +51,22 @@
                     </a>
                 </td>
                 <td>
-                    <a th:href="@{/group_api/allOfGroupss/{id}(id=${course.id})}">
-                        <button style="width: 100px; height: 40px">Groups</button>
-                    </a>
+                    <form th:method="POST" th:action="@{/instructor_api/{courseId}/assignInstructor(courseId=${course.getId()})}">
+                        <select name="instructor" class="form-select form-select-sm" aria-label=".form-select-sm example" th:object="${instructor}" th:field="*{id}">
+                            <option th:each="instructor : ${instructors}" th:value="${instructor.id}" th:text="${instructor.firstName}">
+                            </option>
+                        </select>
+                        <input type="submit" value="submit"/>
+                    </form>
+                </td>
+                <td>
+                    <form th:method="POST" th:action="@{/group_api/{courseId}/assignGroup(courseId=${course.getId()})}">
+                        <select name="group" class="form-select form-select-sm" aria-label=".form-select-sm example" th:object="${group}" th:field="*{id}">
+                            <option th:each="group : ${groups}" th:value="${group.id}" th:text="${group.groupName}">
+                            </option>
+                        </select>
+                        <input type="submit" value="submit"/>
+                    </form>
                 </td>
                 <td>
                 <a th:href="@{/instructor_api/allOfInstructorss/{id}(id=${course.id})}">

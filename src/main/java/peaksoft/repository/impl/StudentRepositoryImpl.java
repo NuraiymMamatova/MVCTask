@@ -8,6 +8,7 @@ import peaksoft.repository.StudentRepository;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.List;
 
 @Repository
@@ -50,14 +51,25 @@ public class StudentRepositoryImpl implements StudentRepository {
 
     @Override
     public List<Student> getAllStudents(Long id) {
-        return entityManager.createQuery("select s from Student  s where s.group.id = :id", Student.class).setParameter("id", id).getResultList();
+        List<Student> students = entityManager.find(Student.class, id).getGroup().getStudents();
+        students.forEach(System.out::println);
+        return students;
     }
 
-    public void assignStudentToGroup(Long studentId, Long groupId) {
+    @Override
+    public void assignStudentToGroup(Long studentId, Long groupId) throws IOException {
         Student student = entityManager.find(Student.class, studentId);
         Group group = entityManager.find(Group.class, groupId);
+        if (group.getStudents() != null) {
+            for (Student student1 : group.getStudents()) {
+                if (student1.getId() == studentId) {
+                    throw new IOException("This student already exists!");
+                }
+            }
+        }
         group.addStudents(student);
         student.setGroup(group);
+        entityManager.merge(student);
         entityManager.merge(group);
     }
 }

@@ -7,6 +7,7 @@ import peaksoft.repository.InstructorRepository;
 import peaksoft.service.InstructorService;
 
 import javax.transaction.Transactional;
+import java.io.IOException;
 import java.util.List;
 
 @Service
@@ -51,7 +52,7 @@ public class InstructorServiceImpl implements InstructorService {
     }
 
     @Override
-    public void assignInstructorToCourse(Long instructorId, Long courseId) {
+    public void assignInstructorToCourse(Long instructorId, Long courseId) throws IOException {
         instructorRepository.assignInstructorToCourse(instructorId, courseId);
     }
 }

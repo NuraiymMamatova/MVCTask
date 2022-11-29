@@ -5,6 +5,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import peaksoft.entity.Student;
+import peaksoft.enums.StudyFormat;
 import peaksoft.service.StudentService;
 
 @Controller
@@ -35,6 +36,8 @@ public class StudentApi {
     @GetMapping("/{id}/new")
     private String newStudent(@PathVariable Long id, Model model) {
         model.addAttribute("newStudent", new Student());
+        model.addAttribute("StudyFormatOnline", StudyFormat.ONLINE);
+        model.addAttribute("StudyFormatOffline", StudyFormat.OFFLINE);
         model.addAttribute("groupId", id);
         return "/student/saveStudent";
     }
@@ -49,6 +52,8 @@ public class StudentApi {
     private String upStudent(@PathVariable("id") Long id, Model model) {
         Student student = studentService.getStudentById(id);
         model.addAttribute("updateStudent", student);
+        model.addAttribute("StudyFormatOnline", StudyFormat.ONLINE);
+        model.addAttribute("StudyFormatOffline", StudyFormat.OFFLINE);
         model.addAttribute("groupId", student.getGroup().getId());
         return "/student/updateStudent";
     }

@@ -2,6 +2,7 @@ package peaksoft.service;
 
 import peaksoft.entity.Student;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface StudentService {
@@ -17,4 +18,6 @@ public interface StudentService {
     List<Student> getAllStudents();
 
     List<Student> getAllStudents(Long id);
+
+    void assignStudentToGroup(Long studentId, Long groupId) throws IOException;
 }

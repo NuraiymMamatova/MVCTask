@@ -53,6 +53,7 @@ public class GroupRepositoryImpl implements GroupRepository {
         return groups;
     }
 
+    @Override
     public void assignGroupToCourse(Long groupId, Long courseId) {
         Group group = entityManager.find(Group.class, groupId);
         Course course = entityManager.find(Course.class, courseId);

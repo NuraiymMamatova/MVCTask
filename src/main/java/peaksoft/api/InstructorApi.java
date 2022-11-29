@@ -7,6 +7,8 @@ import org.springframework.web.bind.annotation.*;
 import peaksoft.entity.Instructor;
 import peaksoft.service.InstructorService;
 
+import java.io.IOException;
+
 @Controller
 @RequestMapping("/instructor_api")
 public class InstructorApi {
@@ -73,7 +75,7 @@ public class InstructorApi {
 //    }
 
     @PostMapping("/{courseId}/{instructorId}/assignInstructorToCourse")
-    private String assignInstructorToCourse(@PathVariable("courseId") Long courseId, @PathVariable("instructorId") Long instructorId) {
+    private String assignInstructorToCourse(@PathVariable("courseId") Long courseId, @PathVariable("instructorId") Long instructorId) throws IOException {
         instructorService.assignInstructorToCourse(instructorId, courseId);
         return "/instructor/allInstructors";
     }

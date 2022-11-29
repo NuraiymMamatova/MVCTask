@@ -50,4 +50,8 @@ public class GroupServiceImpl implements GroupService {
         return groupRepository.getAllGroups(courseId);
     }
 
+    public void assignGroupToCourse(Long groupId, Long courseId) {
+        groupRepository.assignGroupToCourse(groupId, courseId);
+    }
+
 }

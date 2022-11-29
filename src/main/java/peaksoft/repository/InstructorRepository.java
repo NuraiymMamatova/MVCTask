@@ -4,6 +4,7 @@ package peaksoft.repository;
 import peaksoft.entity.Course;
 import peaksoft.entity.Instructor;
 
+import java.io.IOException;
 import java.util.List;
 
 public interface InstructorRepository {
@@ -20,6 +21,6 @@ public interface InstructorRepository {
 
     List<Instructor> getAllInstructors(Long id);
 
-    void assignInstructorToCourse(Long instructorId, Long courseId);
+    void assignInstructorToCourse(Long instructorId, Long courseId) throws IOException;
 
 }

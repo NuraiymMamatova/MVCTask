@@ -12,7 +12,13 @@
     <p>Last name: <input type="text" th:field="*{lastName}" placeholder="last name"/></p>
     <p>Phone number: <input type="text" th:field="*{phoneNumber}" placeholder="phone number"/></p>
     <p>Email: <input type="email" th:field="*{email}" placeholder="email"/></p>
-    <p>Study format: <input class="studyFormat" type="text" th:field="*{studyFormat}" placeholder="study format">
+    <p>Study format:
+        <label>
+            <input th:field="*{studyFormat}" type="radio" th:value="${StudyFormatOnline}">
+        </label>Online
+        <label>
+            <input th:field="*{studyFormat}" type="radio" th:value="${StudyFormatOffline}">
+        </label>Offline
     <p><input type="submit" value="Submit"/></p>
 </form>
 </center>

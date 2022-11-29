@@ -18,4 +18,6 @@ public interface GroupRepository {
 
     List<Group> getAllGroups(Long courseId);
 
+    void assignGroupToCourse(Long groupId, Long courseId);
+
 }

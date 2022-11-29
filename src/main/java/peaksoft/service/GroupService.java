@@ -15,6 +15,9 @@ public interface GroupService {
     Group getGroupById(Long id);
 
     List<Group> getAllGroups();
+
     List<Group> getAllGroups(Long courseId);
+
+    void assignGroupToCourse(Long groupId, Long courseId);
 
 }

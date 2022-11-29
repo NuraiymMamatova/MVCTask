@@ -40,6 +40,15 @@
                     <p th:text="${group.image}"/>
                 </td>
                 <td>
+                <form th:method="POST" th:action="@{/group_api/{groupId}/assignStudent(groupId=${group.getId()})}">
+                    <select name="student" class="form-select form-select-sm" aria-label=".form-select-sm example" th:object="${student}" th:field="*{id}">
+                        <option th:each="student : ${students}" th:value="${student.id}" th:text="${student.firstName}">
+                        </option>
+                    </select>
+                    <input type="submit" value="submit"/>
+                </form>
+            </td>
+                <td>
                     <a th:href="@{/student_api/allOfStudentss/{id}(id=${group.id})}">
                         <button style="width: 100px; height: 40px;">Students</button>
                     </a>
@@ -50,10 +59,11 @@
                 </a>
             </td>
                 <td>
-                    <a th:href="@{/group_api/{courseId}/{id}/delete(courseId= ${courseId}, id = ${group.id})}">
+                    <a th:href="@{/group_api/{courseId}/{id}/delete(courseId= ${courseId}, id = ${group.id})}" onclick="return confirm('Are you sure to delete this course?');">
                         <button style="width: 100px; height: 40px;">Delete</button>
                     </a>
                 </td>
+
             </tr>
         </div>
     </table>
