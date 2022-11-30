@@ -23,6 +23,7 @@
             <th>Phone number</th>
             <th>Email</th>
             <th>Specialization</th>
+            <th>Count of students</th>
             <th>Course</th>
             <th>Update</th>
             <th>Delete</th>
@@ -49,6 +50,9 @@
                 </td>
                 <td>
                     <p th:text="${instructor.course.id}"/>
+                </td>
+                <td>
+                    <p th:text="${instructor.count}"/>
                 </td>
                 <td>
                     <a th:href="@{/instructor_api/update/{id}(id = ${instructor.id})}">

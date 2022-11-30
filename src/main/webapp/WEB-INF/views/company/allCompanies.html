@@ -20,6 +20,7 @@
             <th>Id</th>
             <th>Company name</th>
             <th>Located country</th>
+            <th>Count of students</th>
             <th>Courses</th>
             <th>Update</th>
             <th>Delete</th>
@@ -34,6 +35,9 @@
                 </td>
                 <td>
                     <p th:text="${company.locatedCountry}"/>
+                </td>
+                <td>
+                    <p th:text="${company.count}"/>
                 </td>
 
                 <td>
