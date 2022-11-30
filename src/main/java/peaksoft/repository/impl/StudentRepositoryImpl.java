@@ -32,12 +32,20 @@ public class StudentRepositoryImpl implements StudentRepository {
                 instructor.plus();
             }
         }
+        student.setGroup(null);
 
     }
 
     @Override
     public void deleteStudent(Long id) {
-        entityManager.remove(entityManager.find(Student.class, id));
+        Student student = entityManager.find(Student.class, id);
+        entityManager.remove(student);
+        for (Course course : student.getGroup().getCourses()) {
+            course.getCompany().minus();
+            for (Instructor instructor : course.getInstructors()) {
+                instructor.minus();
+            }
+        }
     }
 
     @Override
