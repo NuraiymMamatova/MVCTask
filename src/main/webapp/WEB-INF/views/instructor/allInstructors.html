@@ -23,6 +23,7 @@
             <th>Phone number</th>
             <th>Email</th>
             <th>Specialization</th>
+            <th>Count of students</th>
             <th>Course</th>
         </tr>
         <div th:each="instructor:${allInstructor}">
@@ -44,6 +45,9 @@
                 </td>
                 <td>
                     <p th:text="${instructor.specialization}"/>
+                </td>
+                <td>
+                    <p th:text="${instructor.count}"/>
                 </td>
                 <td>
                     <form th:method="POST" th:action="@{/instructor_api/{instructorId}/assignInstructorToCourse(instructorId=${instructor.getId()})}">

@@ -22,7 +22,16 @@ public class StudentRepositoryImpl implements StudentRepository {
 
     @Override
     public void saveStudent(Long id, Student student) {
+        Group group = entityManager.find(Group.class, id);
+        group.addStudents(student);
+        student.setGroup(group);
         entityManager.persist(student);
+        for (Course course : group.getCourses()) {
+            course.getCompany().plus();
+            for (Instructor instructor : course.getInstructors()) {
+                instructor.plus();
+            }
+        }
 
     }
 
@@ -74,6 +83,11 @@ public class StudentRepositoryImpl implements StudentRepository {
 
                     throw new IOException("This student already exists!");
                 }
+            }
+        }
+        for (Course course : group.getCourses()) {
+            for (Instructor instructor : course.getInstructors()) {
+                instructor.plus();
             }
         }
         System.out.println("assign group to course 6 repository");
