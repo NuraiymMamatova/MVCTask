@@ -19,7 +19,8 @@ public class InstructorRepositoryImpl implements InstructorRepository {
     private EntityManager entityManager;
 
     @Override
-    public void saveInstructor(Long id, Instructor instructor) {
+    public void saveInstructor(Long id, Instructor instructor) throws IOException {
+        validator(instructor.getPhoneNumber().replace(" ", ""), instructor.getLastName().replace(" ", ""), instructor.getFirstName().replace(" ", ""));
         entityManager.persist(instructor);
     }
 
@@ -29,13 +30,14 @@ public class InstructorRepositoryImpl implements InstructorRepository {
     }
 
     @Override
-    public void updateInstructor(Long id, Instructor instructor) {
+    public void updateInstructor(Long id, Instructor instructor) throws IOException {
         Instructor instructor1 = entityManager.find(Instructor.class, id);
         instructor1.setFirstName(instructor.getFirstName());
         instructor1.setLastName(instructor.getLastName());
         instructor1.setPhoneNumber(instructor.getPhoneNumber());
         instructor1.setEmail(instructor.getEmail());
         instructor1.setSpecialization(instructor.getSpecialization());
+        validator(instructor.getPhoneNumber().replace(" ", ""), instructor.getLastName().replace(" ", ""), instructor.getFirstName().replace(" ", ""));
         entityManager.merge(instructor1);
     }
 
@@ -65,9 +67,42 @@ public class InstructorRepositoryImpl implements InstructorRepository {
                 }
             }
         }
+
         course.addInstructor(instructor);
         instructor.setCourse(course);
         entityManager.merge(instructor);
         entityManager.merge(course);
+    }
+
+    private void validator(String phoneNumber, String firstName, String lastName) throws IOException {
+        if (firstName.length() > 2 && lastName.length() > 2) {
+            for (Character character : firstName.toCharArray()) {
+                if (!Character.isAlphabetic(character)) {
+                    throw  new IOException("Numbers cannot be inserted in the name of the instructor");
+                }
+            }
+            for (Character character : lastName.toCharArray()) {
+                if (!Character.isAlphabetic(character)) {
+                    throw new IOException("Numbers cannot be inserted into the name of the instructor");
+                }
+            }
+        } else {
+            throw new IOException("Instructor's first or last name must contain at least 3 letters");
+        }
+
+        if (phoneNumber.length() == 13 && phoneNumber.charAt(0) == '+' && phoneNumber.charAt(1) == '9' && phoneNumber.charAt(2) == '9' && phoneNumber.charAt(3) == '6') {
+            int counter = 0;
+
+            for (Character character : phoneNumber.toCharArray()) {
+                if (counter!= 0) {
+                    if (!Character.isDigit(character)) {
+                        throw new IOException("Number format is not correct");
+                    }
+                }
+                counter++;
+            }
+        }else {
+            throw new IOException("Number format is not correct");
+        }
     }
 }

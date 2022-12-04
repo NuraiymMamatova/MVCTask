@@ -54,7 +54,7 @@ public class StudentApi {
     }
 
     @PostMapping("/{id}/save")
-    private String saveStudent(@ModelAttribute("newStudent") Student student, @PathVariable Long id) {
+    private String saveStudent(@ModelAttribute("newStudent") Student student, @PathVariable Long id) throws IOException {
         studentService.saveStudent(id, student);
         return "redirect:/student_api/allOfStudentss/" + id;
     }
@@ -70,7 +70,7 @@ public class StudentApi {
     }
 
     @PostMapping("/{groupId}/{id}/update")
-    private String dateStudent(@PathVariable("groupId") Long groupId, @PathVariable("id") Long id, @ModelAttribute("updateStudent") Student student) {
+    private String dateStudent(@PathVariable("groupId") Long groupId, @PathVariable("id") Long id, @ModelAttribute("updateStudent") Student student) throws IOException {
         studentService.updateStudent(id, student);
         return "redirect:/student_api/allOfStudentss/" + groupId;
     }
@@ -84,6 +84,6 @@ public class StudentApi {
     @PostMapping("/{studentId}/assignStudentToGroup")
     private String assignStudentToGroup(@PathVariable("studentId") Long studentId, @ModelAttribute("group") Group group) throws IOException {
         studentService.assignStudentToGroup(studentId, group.getId());
-        return "redirect:/student_api/allOfStudentss/" + studentId;
+        return "redirect:/student_api/allOfStudentss/" + group.getId();
     }
 }

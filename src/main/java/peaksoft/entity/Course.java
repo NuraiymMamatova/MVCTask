@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Positive;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,9 +26,12 @@ public class Course {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "course_seq")
     private Long id;
 
+    @NotNull(message = "name cannot be null")
     @Column(name = "course_name")
     private String courseName;
 
+    @NotNull(message = "duration cannot be null")
+    @Positive(message = "duration cannot be negative")
     private Integer duration;
 
     private String description;

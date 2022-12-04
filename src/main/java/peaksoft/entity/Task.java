@@ -5,6 +5,8 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.FutureOrPresent;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 import java.sql.Date;
 
@@ -22,12 +24,15 @@ public class Task {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "task_seq")
     private Long id;
 
+    @NotNull(message = "name cannot be null")
     @Column(name = "task_name")
     private String taskName;
 
+    @NotNull(message = "task text cannot be null")
     @Column(name = "task_text")
     private String taskText;
 
+    @NotNull(message = "deadline cannot be null")
     private Date deadline;
 
     @ManyToOne(cascade = { MERGE, REFRESH, DETACH, PERSIST}, fetch = FetchType.EAGER)

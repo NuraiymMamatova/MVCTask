@@ -8,11 +8,11 @@ import java.util.List;
 
 public interface StudentRepository {
 
-    void saveStudent(Long id, Student student);
+    void saveStudent(Long id, Student student) throws IOException;
 
     void deleteStudent(Long id);
 
-    void updateStudent(Long id, Student student);
+    void updateStudent(Long id, Student student) throws IOException;
 
     Student getStudentById(Long id);
 

@@ -23,7 +23,9 @@ public class CompanyRepositoryImpl implements CompanyRepository {
 
     @Override
     public void deleteCompany(Long id) {
-        entityManager.remove(entityManager.find(Company.class, id));
+//        entityManager.remove(entityManager.find(Company.class, id));
+        Company company = entityManager.find(Company.class, id);
+        entityManager.remove(entityManager.contains(company) ? company : entityManager.merge(company));
     }
 
     @Override

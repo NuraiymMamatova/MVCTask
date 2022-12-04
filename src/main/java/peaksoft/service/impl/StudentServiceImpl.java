@@ -22,7 +22,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void saveStudent(Long id, Student student) {
+    public void saveStudent(Long id, Student student) throws IOException {
         studentRepository.saveStudent(id, student);
     }
 
@@ -32,7 +32,7 @@ public class StudentServiceImpl implements StudentService {
     }
 
     @Override
-    public void updateStudent(Long id, Student student) {
+    public void updateStudent(Long id, Student student) throws IOException {
         studentRepository.updateStudent(id, student);
     }
 

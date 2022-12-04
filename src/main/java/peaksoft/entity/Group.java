@@ -5,6 +5,9 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.Valid;
+import javax.validation.constraints.NotNull;
+import javax.validation.constraints.PastOrPresent;
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -24,11 +27,14 @@ public class Group {
     private Long id;
 
     @Column(name = "group_name")
+    @NotNull(message = "name cannot be null")
     private String groupName;
 
     @Column(name = "date_of_start")
+    @NotNull(message = "date of start cannot be null")
     private Date dateOfStart;
 
+    @Column(length = 500)
     private String image;
 
     @ManyToMany(cascade = {MERGE, REFRESH, DETACH, PERSIST}, fetch = FetchType.LAZY)
