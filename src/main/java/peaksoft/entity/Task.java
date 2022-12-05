@@ -1,13 +1,11 @@
 package peaksoft.entity;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-import javax.validation.constraints.FutureOrPresent;
-import javax.validation.constraints.NotNull;
-import java.time.LocalDate;
 import java.sql.Date;
 
 import static javax.persistence.CascadeType.*;

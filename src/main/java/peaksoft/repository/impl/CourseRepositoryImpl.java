@@ -27,14 +27,15 @@ public class CourseRepositoryImpl implements CourseRepository {
     @Override
     public void deleteCourse(Long id) {
         Course course = entityManager.find(Course.class, id);
-        for (Instructor instructor : course.getInstructors()) {
-            for (Group group : course.getGroups()) {
-                for (Student student : group.getStudents()) {
-                    instructor.minus();
-                    course.getCompany().minus();
-                }
+        Long count = 0L;
+        for (Group group : course.getGroups()) {
+            for (Student student : group.getStudents()) {
+                count++;
             }
         }
+        Long count1 = course.getCompany().getCount();
+        count1 -= count;
+        course.getCompany().setCount(count1);
         entityManager.remove(course);
     }
 

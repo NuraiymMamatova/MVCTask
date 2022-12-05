@@ -27,6 +27,7 @@ public class StudentRepositoryImpl implements StudentRepository {
        for (Course c : group.getCourses()) {
             c.getCompany().plus();
         }
+
         for (Course c : group.getCourses()) {
             for (Instructor i : c.getInstructors()) {
                 i.plus();
@@ -35,19 +36,25 @@ public class StudentRepositoryImpl implements StudentRepository {
         validator(student.getPhoneNumber().replace(" ", ""), student.getLastName()
                 .replace(" ", ""), student.getFirstName()
                 .replace(" ", ""));
+        group.addStudents(student);
+        student.setGroup(group);
         entityManager.persist(student);
     }
 
     @Override
     public void deleteStudent(Long id) {
         Student student = entityManager.find(Student.class, id);
-        entityManager.remove(student);
-        for (Course course : student.getGroup().getCourses()) {
+        Student studentById = getStudentById(id);
+        for (Course course : studentById.getGroup().getCourses()) {
             course.getCompany().minus();
+
+        }
+        for (Course course : studentById.getGroup().getCourses()) {
             for (Instructor instructor : course.getInstructors()) {
                 instructor.minus();
             }
         }
+        entityManager.remove(student);
     }
 
     @Override

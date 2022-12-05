@@ -22,16 +22,25 @@ public class GroupRepositoryImpl implements GroupRepository {
 
     @Override
     public void saveGroup(Long id, Group group) {
+        Course course = entityManager.find(Course.class, id);
+        course.addGroup(group);
+        group.addCourse(course);
         entityManager.persist(group);
     }
 
     @Override
     public void deleteGroup(Long id) {
         Group group = entityManager.find(Group.class, id);
+        List<Student> students = group.getStudents();
+        Long count = students.stream().count();
         for (Course course : group.getCourses()) {
-            course.getCompany().minus();
+            Long count1 = course.getCompany().getCount();
+            count1 -= count;
+            course.getCompany().setCount(count1);
             for (Instructor instructor : course.getInstructors()) {
-                instructor.minus();
+                Long count2 = instructor.getCount();
+                count2 -= count;
+                instructor.setCount(count2);
             }
         }
         entityManager.remove(group);

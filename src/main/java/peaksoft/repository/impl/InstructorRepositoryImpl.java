@@ -2,7 +2,9 @@ package peaksoft.repository.impl;
 
 import org.springframework.stereotype.Repository;
 import peaksoft.entity.Course;
+import peaksoft.entity.Group;
 import peaksoft.entity.Instructor;
+import peaksoft.entity.Student;
 import peaksoft.repository.InstructorRepository;
 
 import javax.persistence.EntityManager;
@@ -67,7 +69,13 @@ public class InstructorRepositoryImpl implements InstructorRepository {
                 }
             }
         }
-
+        Long count = 0L;
+        for (Group group : course.getGroups()) {
+            for (Student student : group.getStudents()) {
+                count++;
+            }
+        }
+        instructor.setCount(count);
         course.addInstructor(instructor);
         instructor.setCourse(course);
         entityManager.merge(instructor);
