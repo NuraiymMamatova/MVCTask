@@ -23,19 +23,19 @@ public class StudentRepositoryImpl implements StudentRepository {
     @Override
     public void saveStudent(Long id, Student student) throws IOException {
        Group group = entityManager.find(Group.class, id);
-
-       for (Course c : group.getCourses()) {
-            c.getCompany().plus();
-        }
-
-        for (Course c : group.getCourses()) {
-            for (Instructor i : c.getInstructors()) {
-                i.plus();
-            }
-        }
         validator(student.getPhoneNumber().replace(" ", ""), student.getLastName()
                 .replace(" ", ""), student.getFirstName()
                 .replace(" ", ""));
+       for (Course course : group.getCourses()) {
+            course.getCompany().plus();
+        }
+
+        for (Course course : group.getCourses()) {
+            for (Instructor instructor : course.getInstructors()) {
+                instructor.plus();
+            }
+        }
+
         group.addStudents(student);
         student.setGroup(group);
         entityManager.persist(student);
@@ -96,11 +96,6 @@ public class StudentRepositoryImpl implements StudentRepository {
                 if (student1.getId() == studentId) {
                     throw new IOException("This student already exists!");
                 }
-            }
-        }
-        for (Course course : group.getCourses()) {
-            for (Instructor instructor : course.getInstructors()) {
-                instructor.plus();
             }
         }
         group.addStudents(student);
