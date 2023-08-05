@@ -4,6 +4,7 @@ import org.springframework.stereotype.Repository;
 import peaksoft.entity.Course;
 import peaksoft.entity.Group;
 import peaksoft.entity.Instructor;
+import peaksoft.entity.Student;
 import peaksoft.repository.GroupRepository;
 
 import javax.persistence.EntityManager;
@@ -21,12 +22,28 @@ public class GroupRepositoryImpl implements GroupRepository {
 
     @Override
     public void saveGroup(Long id, Group group) {
+        Course course = entityManager.find(Course.class, id);
+        course.addGroup(group);
+        group.addCourse(course);
         entityManager.persist(group);
     }
 
     @Override
     public void deleteGroup(Long id) {
-        entityManager.remove(entityManager.find(Group.class, id));
+        Group group = entityManager.find(Group.class, id);
+        List<Student> students = group.getStudents();
+        Long count = students.stream().count();
+        for (Course course : group.getCourses()) {
+            Long count1 = course.getCompany().getCount();
+            count1 -= count;
+            course.getCompany().setCount(count1);
+            for (Instructor instructor : course.getInstructors()) {
+                Long count2 = instructor.getCount();
+                count2 -= count;
+                instructor.setCount(count2);
+            }
+        }
+        entityManager.remove(group);
     }
 
     @Override
@@ -57,28 +74,18 @@ public class GroupRepositoryImpl implements GroupRepository {
 
     @Override
     public void assignGroupToCourse(Long groupId, Long courseId) throws IOException {
-        System.out.println("assign group to course 1 repository");
-        Group group = entityManager.find(Group.class, groupId);
-        System.out.println("assign group to course 2 repository");
         Course course = entityManager.find(Course.class, courseId);
-        System.out.println("assign group to course 3 repository");
+        Group group = entityManager.find(Group.class, groupId);
         if (course.getGroups() != null) {
-            System.out.println("assign group to course 4 repository");
             for (Group group1 : course.getGroups()) {
-                System.out.println("assign group to course 5 repository");
                 if (group1.getId() == groupId) {
-                    System.out.println("assign group to course 6 repository");
-                    throw  new IOException("This group already exists!");
+                    throw new IOException("This group already exists!");
                 }
             }
         }
-        System.out.println("assign group to course 7 repository");
         course.addGroup(group);
-        System.out.println("assign group to course 8 repository");
         group.addCourse(course);
-        System.out.println("assign group to course 9 repository");
         entityManager.merge(course);
-        System.out.println("assign group to course 10 repository");
     }
 
 }

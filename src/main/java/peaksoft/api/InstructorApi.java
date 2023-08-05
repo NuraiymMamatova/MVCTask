@@ -48,7 +48,7 @@ public class InstructorApi {
     }
 
     @PostMapping("/{id}/save")
-    private String saveInstructor(@ModelAttribute("newInstructor") Instructor instructor, @PathVariable Long id) {
+    private String saveInstructor(@ModelAttribute("newInstructor") Instructor instructor, @PathVariable Long id) throws IOException {
         instructorService.saveInstructor(id, instructor);
         return "redirect:/instructor_api/allOfInstructorss/" + id;
     }
@@ -62,7 +62,7 @@ public class InstructorApi {
     }
 
     @PostMapping("/{courseId}/{id}/update")
-    private String dateInstructor(@PathVariable("courseId") Long courseId, @PathVariable("id") Long id, @ModelAttribute("updateInstructor") Instructor instructor) {
+    private String dateInstructor(@PathVariable("courseId") Long courseId, @PathVariable("id") Long id, @ModelAttribute("updateInstructor") Instructor instructor) throws IOException {
         instructorService.updateInstructor(id, instructor);
         return "redirect:/instructor_api/allOfInstructorss/" + courseId;
     }

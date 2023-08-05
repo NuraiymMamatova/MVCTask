@@ -1,11 +1,11 @@
 package peaksoft.entity;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,6 +23,7 @@ public class Lesson {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "lesson_seq")
     private Long id;
 
+    @NotNull(message = "name cannot be null")
     @Column(name = "lesson_name")
     private String lessonName;
 

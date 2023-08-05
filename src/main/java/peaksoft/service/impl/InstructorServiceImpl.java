@@ -22,7 +22,7 @@ public class InstructorServiceImpl implements InstructorService {
     }
 
     @Override
-    public void saveInstructor(Long id, Instructor instructor) {
+    public void saveInstructor(Long id, Instructor instructor) throws IOException {
         instructorRepository.saveInstructor(id, instructor);
     }
 
@@ -32,7 +32,7 @@ public class InstructorServiceImpl implements InstructorService {
     }
 
     @Override
-    public void updateInstructor(Long id, Instructor instructor) {
+    public void updateInstructor(Long id, Instructor instructor) throws IOException {
         instructorRepository.updateInstructor(id, instructor);
     }
 

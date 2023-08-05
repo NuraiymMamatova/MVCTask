@@ -2,9 +2,11 @@ package peaksoft.entity;
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.Setter;
 
 import javax.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,9 +22,11 @@ public class Company {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "company_seq")
     private Long id;
 
+    @NotNull(message = "Name cannot be null")
     @Column(name = "company_name")
     private String companyName;
 
+    @NotNull(message = "Located country cannot be null")
     @Column(name = "located_country")
     private String locatedCountry;
 

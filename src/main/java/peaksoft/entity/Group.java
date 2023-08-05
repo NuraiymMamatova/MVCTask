@@ -1,5 +1,6 @@
 package peaksoft.entity;
 
+import jakarta.validation.constraints.NotNull;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -24,11 +25,14 @@ public class Group {
     private Long id;
 
     @Column(name = "group_name")
+    @NotNull(message = "name cannot be null")
     private String groupName;
 
     @Column(name = "date_of_start")
+    @NotNull(message = "date of start cannot be null")
     private Date dateOfStart;
 
+    @Column(length = 500)
     private String image;
 
     @ManyToMany(cascade = {MERGE, REFRESH, DETACH, PERSIST}, fetch = FetchType.LAZY)

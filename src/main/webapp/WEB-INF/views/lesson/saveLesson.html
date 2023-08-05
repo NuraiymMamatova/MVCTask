@@ -18,6 +18,7 @@
           th:action="@{/lesson_api/{id}/save(id=${courseId})}"
           th:object="${newLesson}"
           th:method="POST" >
+        <input type="hidden" th:field="*{id}">
         <p>Lesson name:
           <input   class="form-control is-valid" id="lessonName" type="text" th:field="*{lessonName}" placeholder="lesson name"/>
           </p>

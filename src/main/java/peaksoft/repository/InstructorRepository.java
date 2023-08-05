@@ -9,11 +9,11 @@ import java.util.List;
 
 public interface InstructorRepository {
 
-    void saveInstructor(Long id, Instructor instructor);
+    void saveInstructor(Long id, Instructor instructor) throws IOException;
 
     void deleteInstructor(Long id);
 
-    void updateInstructor(Long id, Instructor instructor);
+    void updateInstructor(Long id, Instructor instructor) throws IOException;
 
     Instructor getInstructorById(Long id);
 

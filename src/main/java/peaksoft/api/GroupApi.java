@@ -63,9 +63,7 @@ public class GroupApi {
 
     @PostMapping("/{courseId}/{id}/update")
     private String dateGroup(@PathVariable("courseId") Long courseId, @PathVariable("id") Long id, @ModelAttribute("updateGroup") Group group) {
-        System.out.println("date group before");
         groupService.updateGroup(id, group);
-        System.out.println("date group after");
         return "redirect:/group_api/allOfGroupss/" + courseId;
     }
 

@@ -49,10 +49,10 @@
                     <p th:text="${instructor.specialization}"/>
                 </td>
                 <td>
-                    <p th:text="${instructor.course.id}"/>
+                    <p th:text="${instructor.count}"/>
                 </td>
                 <td>
-                    <p th:text="${instructor.count}"/>
+                    <p th:text="${instructor.course.id}"/>
                 </td>
                 <td>
                     <a th:href="@{/instructor_api/update/{id}(id = ${instructor.id})}">
@@ -63,7 +63,7 @@
                     <a th:href="@{/instructor_api/{courseId}/{id}/delete(courseId = ${courseId}, id = ${instructor.id})}">
                         <button style="width: 100px; height: 40px;">Delete</button>
                     </a>
-            </td>
+                </td>
                 <td>
 
                 </td>

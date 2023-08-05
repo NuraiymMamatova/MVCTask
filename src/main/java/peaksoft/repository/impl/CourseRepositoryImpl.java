@@ -1,8 +1,7 @@
 package peaksoft.repository.impl;
 
 import org.springframework.stereotype.Repository;
-import peaksoft.entity.Company;
-import peaksoft.entity.Course;
+import peaksoft.entity.*;
 import peaksoft.repository.CourseRepository;
 
 import javax.persistence.EntityManager;
@@ -27,7 +26,17 @@ public class CourseRepositoryImpl implements CourseRepository {
 
     @Override
     public void deleteCourse(Long id) {
-        entityManager.remove(entityManager.find(Course.class, id));
+        Course course = entityManager.find(Course.class, id);
+        Long count = 0L;
+        for (Group group : course.getGroups()) {
+            for (Student student : group.getStudents()) {
+                count++;
+            }
+        }
+        Long count1 = course.getCompany().getCount();
+        count1 -= count;
+        course.getCompany().setCount(count1);
+        entityManager.remove(course);
     }
 
     @Override

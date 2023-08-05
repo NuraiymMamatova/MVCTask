@@ -1,11 +1,11 @@
 package peaksoft.repository.impl;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import peaksoft.entity.*;
-import peaksoft.repository.CourseRepository;
+import peaksoft.entity.Course;
+import peaksoft.entity.Group;
+import peaksoft.entity.Instructor;
+import peaksoft.entity.Student;
 import peaksoft.repository.StudentRepository;
-import peaksoft.service.GroupService;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -21,41 +21,53 @@ public class StudentRepositoryImpl implements StudentRepository {
     private EntityManager entityManager;
 
     @Override
-    public void saveStudent(Long id, Student student) {
-        Group group = entityManager.find(Group.class, id);
-        group.addStudents(student);
-        student.setGroup(group);
-        entityManager.persist(student);
-        for (Course course : group.getCourses()) {
+    public void saveStudent(Long id, Student student) throws IOException {
+       Group group = entityManager.find(Group.class, id);
+        validator(student.getPhoneNumber().replace(" ", ""), student.getLastName()
+                .replace(" ", ""), student.getFirstName()
+                .replace(" ", ""));
+       for (Course course : group.getCourses()) {
             course.getCompany().plus();
+        }
+
+        for (Course course : group.getCourses()) {
             for (Instructor instructor : course.getInstructors()) {
                 instructor.plus();
             }
         }
-        student.setGroup(null);
 
+        group.addStudents(student);
+        student.setGroup(group);
+        entityManager.persist(student);
     }
 
     @Override
     public void deleteStudent(Long id) {
         Student student = entityManager.find(Student.class, id);
-        entityManager.remove(student);
-        for (Course course : student.getGroup().getCourses()) {
+        Student studentById = getStudentById(id);
+        for (Course course : studentById.getGroup().getCourses()) {
             course.getCompany().minus();
+
+        }
+        for (Course course : studentById.getGroup().getCourses()) {
             for (Instructor instructor : course.getInstructors()) {
                 instructor.minus();
             }
         }
+        entityManager.remove(student);
     }
 
     @Override
-    public void updateStudent(Long id, Student student) {
+    public void updateStudent(Long id, Student student) throws IOException {
         Student student1 = entityManager.find(Student.class, id);
         student1.setFirstName(student.getFirstName());
         student1.setLastName(student.getLastName());
         student1.setPhoneNumber(student.getPhoneNumber());
         student1.setPhoneNumber(student.getPhoneNumber());
         student1.setStudyFormat(student.getStudyFormat());
+        validator(student.getPhoneNumber().replace(" ", ""), student.getLastName()
+                .replace(" ", ""), student.getFirstName()
+                .replace(" ", ""));
         entityManager.merge(student1);
     }
 
@@ -71,42 +83,57 @@ public class StudentRepositoryImpl implements StudentRepository {
 
     @Override
     public List<Student> getAllStudents(Long id) {
-        System.out.println("all students repository 1");
         return entityManager.createQuery("select s from Student s where s.group.id = : id",
                 Student.class).setParameter("id", id).getResultList();
     }
 
     @Override
     public void assignStudentToGroup(Long studentId, Long groupId) throws IOException {
-        System.out.println("assign group to course 1 repository");
         Student student = entityManager.find(Student.class, studentId);
-        System.out.println("assign group to course 2 repository");
         Group group = entityManager.find(Group.class, groupId);
-        System.out.println("assign group to course 3 repository");
         if (group.getStudents() != null) {
-            System.out.println("assign group to course 4 repository");
             for (Student student1 : group.getStudents()) {
-                System.out.println("assign group to course 5 repository");
                 if (student1.getId() == studentId) {
-
                     throw new IOException("This student already exists!");
                 }
             }
         }
-        for (Course course : group.getCourses()) {
-            for (Instructor instructor : course.getInstructors()) {
-                instructor.plus();
-            }
-        }
-        System.out.println("assign group to course 6 repository");
         group.addStudents(student);
-        System.out.println("assign group to course 7 repository");
         student.setGroup(group);
-        System.out.println("assign group to course 8 repository");
         entityManager.merge(student);
-        System.out.println("assign group to course 9 repository");
         entityManager.merge(group);
-        System.out.println("assign group to course 10 repository");
+    }
+
+    private void validator(String phoneNumber, String firstName, String lastName) throws IOException {
+        if (firstName.length() > 2 && lastName.length() > 2) {
+            for (Character character : firstName.toCharArray()) {
+                if (!Character.isAlphabetic(character)) {
+                    throw  new IOException("Numbers cannot be inserted in the name of the student");
+                }
+            }
+            for (Character character : lastName.toCharArray()) {
+                if (!Character.isAlphabetic(character)) {
+                    throw new IOException("Numbers cannot be inserted into the name of the student");
+                }
+            }
+        } else {
+            throw new IOException("Student's first or last name must contain at least 3 letters");
+        }
+
+        if (phoneNumber.length() == 13 && phoneNumber.charAt(0) == '+' && phoneNumber.charAt(1) == '9' && phoneNumber.charAt(2) == '9' && phoneNumber.charAt(3) == '6') {
+            int counter = 0;
+
+            for (Character character : phoneNumber.toCharArray()) {
+                if (counter!= 0) {
+                    if (!Character.isDigit(character)) {
+                        throw new IOException("Number format is not correct");
+                    }
+                }
+                counter++;
+            }
+        }else {
+            throw new IOException("Number format is not correct");
+        }
     }
 
 }
